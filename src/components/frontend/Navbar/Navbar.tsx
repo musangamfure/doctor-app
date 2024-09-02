@@ -12,7 +12,7 @@ const Navbar = (props: Props) => {
 
   return (
     <Container>
-      <div className="text-white bg-transparent py-5 px-3">
+      <div className="text-white bg-blue-950 py-5 px-3">
         <button className="hidden"></button>
         <div className="flex items-center max-lg:justify-between max-lg:flex-row-reverse ">
           <div className="flex justify-between items-center max-lg:w-full ">

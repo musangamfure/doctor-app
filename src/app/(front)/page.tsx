@@ -1,9 +1,12 @@
-import Image from "next/image";
+import Container from "@/components/frontend/Container";
+import Hero from "@/components/frontend/Hero";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Doctor App</h1>
-    </main>
+    <section className="">
+      <Container>
+        <Hero />
+      </Container>
+    </section>
   );
 }

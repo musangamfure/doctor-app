@@ -34,7 +34,7 @@ const ProductNav = (props: Props) => {
           show ? "lg:text-neutral-300 " : ""
         }`}
       >
-        Product
+        Doctors
         <svg
           opacity="0.5"
           aria-hidden="true"

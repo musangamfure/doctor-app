@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
+import TransitionalText from "./TransitionalText";
 
 const Hero = () => {
   return (
@@ -7,10 +8,15 @@ const Hero = () => {
       <div className="relative bg-blue-950 pb-[110px] pt-[120px] dark:bg-dark lg:pt-[50px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
-            <div className="w-full px-4 lg:w-5/12">
+            <div className="w-full px-4 lg:w-6/12">
               <div className="hero-content">
-                <h1 className="mb-5 text-4xl font-bold !leading-[1.208]  text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl">
-                  Kickstart Startup Website with TailGrids
+                <h1 className="mb-5 text-4xl font-bold !leading-[1.208]  text-gray-50 dark:text-white sm:text-[37px] lg:text-[38px] xl:text-5xl flex flex-wrap items-center gap-2">
+                  <span>Book Your</span>{" "}
+                  <span className="text-blue-500 mr-2">
+                    <TransitionalText />
+                  </span>
+                  <br />
+                  <span>session now</span>
                 </h1>
                 <p className="mb-8 max-w-[480px] text-base  text-gray-100 dark:text-dark-6">
                   With TailGrids, business and students thrive together.
@@ -70,7 +76,7 @@ const Hero = () => {
               </div>
             </div>
             <div className="hidden px-4 lg:block lg:w-1/12"></div>
-            <div className="w-full px-4 lg:w-6/12">
+            <div className="w-full px-4 lg:w-4/12">
               <div className="lg:ml-auto lg:text-right">
                 <div className="relative z-10 inline-block pt-11 lg:pt-0">
                   <img

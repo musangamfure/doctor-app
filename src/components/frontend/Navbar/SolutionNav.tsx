@@ -33,7 +33,7 @@ const SolutionNav = (props: Props) => {
           show ? "lg:text-neutral-300" : ""
         }`}
       >
-        Solutions
+        Specialist
         <svg
           opacity="0.5"
           aria-hidden="true"

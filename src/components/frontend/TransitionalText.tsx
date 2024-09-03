@@ -6,9 +6,10 @@ import TextTransition, { presets } from "react-text-transition";
 const TEXTS = [
   "Therapist",
   "Dental",
-  "Acupuncture",
-  "Thiropractor",
   "Dietitian",
+  "Optician",
+  "Psychiatrist",
+  "Nutritionist",
 ];
 
 export default function TransitionalText() {

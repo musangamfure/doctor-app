@@ -78,7 +78,7 @@ const DoctorCard = ({
           </div>
         </div>
 
-        <p className="text-gray-600 mt-2">"{review}"</p>
+        <p className="text-gray-600 mt-2">{review}</p>
       </Link>
 
       <div className=" flex items-center justify-between border-t mt-4 pt-2">

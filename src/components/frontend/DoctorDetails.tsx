@@ -1,42 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import AvailabilityComponent from "./AvailabilityComponent";
+import AvailabilityComponent from "./AvailableTime";
 import ServiceDetailsComponent from "./ServiceDetailsComponent";
+import Availability from "../availability";
 
 export default function DoctorDetails() {
   const [active, setActive] = useState("availability");
-  const days = [
-    {
-      day: "Wed, Sep 4",
-      timeSlots: [
-        { time: "1:00 PM", price: 145 },
-        { time: "1:30 PM", price: 145 },
-        { time: "2:00 PM", price: 145 },
-        { time: "2:30 PM", price: 145 },
-        { time: "3:00 PM", price: 145 },
-      ],
-    },
-    {
-      day: "Thu, Sep 5",
-      timeSlots: [
-        { time: "8:00 AM", price: 145 },
-        { time: "8:30 AM", price: 145 },
-        { time: "9:00 AM", price: 145 },
-        { time: "9:30 AM", price: 145 },
-        { time: "10:00 AM", price: 145 },
-      ],
-    },
-    {
-      day: "Fri, Sep 6",
-      timeSlots: [
-        { time: "8:00 AM", price: 145 },
-        { time: "8:30 AM", price: 145 },
-        { time: "9:00 AM", price: 145 },
-        { time: "9:30 AM", price: 145 },
-        { time: "10:00 AM", price: 145 },
-      ],
-    },
+  const appointmentTimes = [
+    "6:30 pm",
+    "10:00 am",
+    "10:30 am",
+    "11:00 am",
+    "11:30 am",
   ];
 
   const included = ["Referral to specialist", "Prescription, if recommended"];
@@ -80,7 +56,7 @@ export default function DoctorDetails() {
       <div className="py-8">
         {active === "availability" ? (
           <div className="">
-            <AvailabilityComponent days={days} />
+            <Availability appointmentTimes={appointmentTimes} />
           </div>
         ) : (
           <div className="">

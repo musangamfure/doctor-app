@@ -1,7 +1,9 @@
+import Navbar from "@/components/dashboard/Navbar";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <h2>From Dashboard layout</h2>
+      <Navbar />
       {children}
     </div>
   );

@@ -9,7 +9,7 @@ export default function Container({ children, className }: ContainerProps) {
   return (
     <div
       className={twMerge(
-        "max-w-[1440px]  w-screen xl:px-20 px-3 md:px-8 sm:px-8 mx-auto ",
+        "max-w-[1440px]   w-screen xl:px-20 px-3 md:px-8 sm:px-8 mx-auto ",
         className
       )}
     >

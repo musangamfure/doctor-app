@@ -1,3 +1,4 @@
+import DoctorList from "@/components/frontend/DoctorList";
 import Brands from "@/components/frontend/Brands";
 import Container from "@/components/frontend/Container";
 import Hero from "@/components/frontend/Hero";
@@ -17,6 +18,12 @@ export default function Home() {
 
       <Container>
         <TabledSection />
+      </Container>
+      <Container className="bg-blue-100 p-8 lg:p-24">
+        <DoctorList title="Telehealth Visit" isInPersonal={false} />
+      </Container>
+      <Container className=" p-8 lg:p-24">
+        <DoctorList title="In-Person Doctors Visit" isInPersonal={true} />
       </Container>
     </section>
   );

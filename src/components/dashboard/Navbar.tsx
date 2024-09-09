@@ -23,16 +23,7 @@ export default function Navbar() {
 
           <div className="flex ml-6 xl:ml-0">
             <div className="flex items-center flex-shrink-0">
-              <img
-                className="block w-auto h-16 lg:hidden"
-                src="/logo.png"
-                alt=""
-              />
-              <img
-                className="hidden w-auto h-16 lg:block"
-                src="/logo.png"
-                alt=""
-              />
+              <h5 className="font-semibold text-xl">Medical App</h5>
             </div>
           </div>
 

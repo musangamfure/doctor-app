@@ -4,6 +4,7 @@ import ProductNav from "./ProductNav";
 import { useState } from "react";
 import SolutionNav from "./SolutionNav";
 import OpenSourceNav from "./OpenSourceNav";
+import Link from "next/link";
 
 type Props = {};
 
@@ -76,19 +77,19 @@ const Navbar = (props: Props) => {
               </nav>
               <div className="lg:flex items-center max-lg:flex-col lg:px-0 px-3 mb-3 lg:mb-0 text-left lg:space-x-4">
                 <div className="max-lg:flex justify-center max-lg:border-[1px] max-lg:mr-4 rounded-md max-lg:bg-neutral-800">
-                  <a
-                    href=""
+                  <Link
+                    href="/login"
                     className="hover:text-neutral-400 max-lg:py-2 max-lg:text-[16px] max-lg:font-semibold "
                   >
                     Sign in
-                  </a>
+                  </Link>
                 </div>
-                <a
-                  href=""
+                <Link
+                  href="/register"
                   className="max-lg:hidden px-2 py-[5px] border-[1px] rounded-md hover:text-neutral-400 "
                 >
                   Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </div>

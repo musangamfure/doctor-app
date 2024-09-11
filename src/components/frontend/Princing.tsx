@@ -49,7 +49,7 @@ export default function Princing() {
         "Multi-provider support",
         "Advanced analytics",
         "Priority customer support",
-        "integration with electronic health records systems",
+        "Integration with electronic health records systems",
       ],
     },
   ];

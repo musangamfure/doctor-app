@@ -19,7 +19,9 @@ export default function page() {
     {
       title: "List your practice",
       description: (
-        <p>It&#39;s free to join with no membership fees or time commitments</p>
+        <span>
+          It&#39;s free to join with no membership fees or time commitments
+        </span>
       ),
     },
     {

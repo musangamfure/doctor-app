@@ -18,8 +18,9 @@ export default function page() {
   const features2 = [
     {
       title: "List your practice",
-      description:
-        "It&#39;s free to join with no membership fees or time commitments",
+      description: (
+        <p>It&#39;s free to join with no membership fees or time commitments</p>
+      ),
     },
     {
       title: "Create competitive offerings ",

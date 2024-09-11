@@ -42,7 +42,7 @@ export default function CustomAccordion() {
     {
       question: "How do I schedule or cancel an appointment?",
       answer:
-        "To schedule an appointment, log into the app, select your provider, and choose a time that works for you. If you need to cancel, go to your appointments section and click 'Cancel' at least 24 hours in advance to avoid any fees.",
+        "To schedule an appointment, log into the app, select your provider, and choose a time that works for you. If you need to cancel, go to your appointments section and click Cancel at least 24 hours in advance to avoid any fees.",
     },
   ];
 

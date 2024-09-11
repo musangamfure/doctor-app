@@ -110,7 +110,7 @@ export default function page() {
       <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 py-16 md:py-24">
         <div className="relative z-10 pt-11 lg:pt-0 hidden md:block">
           <Image
-            src="/woman-doctor.webp"
+            src="/woman.webp"
             width={1200}
             alt="Doctor"
             height={1200}

@@ -1,72 +1,128 @@
-import { BarChart, Folder, Grid2X2, Home, Plus, Settings } from "lucide-react";
+"use client";
+import {
+  BarChart,
+  Bell,
+  Folder,
+  Grid2X2,
+  Home,
+  LineChart,
+  Package,
+  Package2,
+  Plus,
+  Settings,
+  ShoppingCart,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import LogoutButton from "../auth/forminputs/LogoutButton";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "../ui/badge";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 // import LogoutButton from "./LogoutButton";
 // import { getCategories } from "@/actions/categories";
 
 export default async function Sidebar() {
   //   const categories = (await getCategories()) || [];
+  const pathName = usePathname();
+  const sideBarLinks = [
+    {
+      label: "Dashboard",
+      icon: <Home className="h-4 w-4" />,
+      path: "/dashboard",
+    },
+    {
+      label: "Products",
+      icon: <Package className="h-4 w-4" />,
+      path: "/dashboard/products",
+    },
+    {
+      label: "Orders",
+      icon: <ShoppingCart className="h-4 w-4" />,
+      path: "/dashboard/orders",
+      badge: (
+        <Badge
+          className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+          color=""
+        >
+          12
+        </Badge>
+      ),
+    },
+    {
+      label: "Customers",
+      icon: <Users className="h-4 w-4" />,
+      path: "/dashboard/customers",
+    },
+    {
+      label: "Analytics",
+      icon: <LineChart className="h-4 w-4" />,
+      path: "/dashboard/categories",
+    },
+
+    {
+      label: "Settings",
+      icon: <Settings className="h-4 w-4" />,
+      path: "/dashboard/settings",
+    },
+  ];
+
   return (
-    <div className="hidden xl:flex xl:w-64 xl:flex-col border-r border-gray-300">
-      <div className="flex flex-col pt-5 overflow-y-auto">
-        <div className="flex flex-col justify-between flex-1 h-full px-4">
-          <div className="space-y-4">
-            <div>
-              <Button
-                variant="outline"
-                className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 hover:bg-blue-500 hover:text-slate-50"
-              >
-                <Plus className="w-5 h-5 mr-1" />
-                Create Product
+    <div className="hidden border-r bg-muted/40 md:block dark:bg-black">
+      <div className="flex h-full max-h-screen flex-col gap-2">
+        <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+          <Link href="/" className="flex items-center gap-2 font-semibold">
+            <Package2 className="h-6 w-6" />
+            <span className="">Acme Inc</span>
+          </Link>
+          <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
+            <Bell className="h-4 w-4" />
+            <span className="sr-only">Toggle notifications</span>
+          </Button>
+        </div>
+        <div className="flex-1">
+          <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+            {sideBarLinks.map((item, i) => {
+              return (
+                <Link
+                  key={i}
+                  href={item.path}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+                    pathName === item.path ? "bg-muted text-primary" : ""
+                  )}
+                >
+                  {item.icon}
+                  {item.label}
+                  {item.badge && item.badge}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+        <div className="mt-auto p-4">
+          <Card x-chunk="dashboard-02-chunk-0">
+            <CardHeader className="p-2 pt-0 md:p-4">
+              <CardTitle>Upgrade to Pro</CardTitle>
+              <CardDescription>
+                Unlock all features and get unlimited access to our support
+                team.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+              <Button size="sm" className="w-full">
+                Upgrade
               </Button>
-            </div>
-            <div>
-              <p className="px-4 text-xs font-semibold tracking-widest text-gray-400 uppercase">
-                Analytics
-              </p>
-              <nav className="flex-1 mt-4 space-y-1">
-                <Link
-                  href="/dashboard"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
-                >
-                  <Home className="flex-shrink-0 w-5 h-5 mr-4" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="/dashboard/categories"
-                  title="categories"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
-                >
-                  <Grid2X2 className="flex-shrink-0 w-5 h-5 mr-4" />
-                  Categories
-                </Link>
-                <Link
-                  href="/dashboard/products"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
-                >
-                  <Folder className="flex-shrink-0 w-5 h-5 mr-4" />
-                  Products
-                </Link>
-              </nav>
-            </div>
-          </div>
-
-          <div className="pb-4 mt-12">
-            <nav className="flex-1 space-y-1">
-              <Link
-                href="#"
-                title=""
-                className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
-              >
-                <Settings className="flex-shrink-0 w-5 h-5 mr-4" />
-                Settings
-              </Link>
-
-              <LogoutButton title="Logout" loadingTitle="Logging out..." />
-            </nav>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

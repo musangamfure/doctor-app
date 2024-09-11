@@ -63,8 +63,8 @@ export default function Princing() {
           </h3>
           <div className="mt-3 max-w-xl">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              efficitur consequat nunc.
+              Choose the best plan that fit your needs and scale up as your
+              business grows.
             </p>
           </div>
         </div>
@@ -113,7 +113,10 @@ export default function Princing() {
                   <p>Features</p>
                 </li>
                 {item.features.map((featureItem, idx) => (
-                  <li key={idx} className="flex items-center gap-5">
+                  <li
+                    key={idx}
+                    className="flex items-center gap-5 font-semibold"
+                  >
                     <Check className="h-5 w-5 text-indigo-600 flex-shrink-0" />
 
                     {featureItem}

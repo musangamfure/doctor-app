@@ -79,7 +79,11 @@ export default function TabsComponent() {
   ];
 
   return (
-    <Tabs aria-label="Tabs with underline" variant="underline">
+    <Tabs
+      aria-label="Tabs with underline"
+      variant="underline"
+      className="dark:bg-slate-950"
+    >
       {tabsData.map((tab, i) => {
         return (
           <Tabs.Item active key={i} title={tab.title} icon={tab.icon}>

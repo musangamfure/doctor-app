@@ -41,6 +41,7 @@ import { signOut } from "next-auth/react";
 export default function Navbar({ session }: { session: Session }) {
   const user: User = session.user;
   const names = user?.name ?? "";
+
   function getInitials(name: string) {
     if (!name) return "";
     const nameParts = name.split(" ");

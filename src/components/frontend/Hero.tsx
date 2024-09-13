@@ -7,7 +7,7 @@ import { CommandMenu } from "../command-menu";
 const Hero = () => {
   return (
     <>
-      <div className="relative bg-blue-950 pb-[110px] pt-[120px] dark:bg-dark lg:pt-[50px]">
+      <div className="relative  pb-[110px] pt-[120px]  lg:pt-[80px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-6/12">

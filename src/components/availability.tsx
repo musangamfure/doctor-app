@@ -30,7 +30,7 @@ export default function Availability({
         </div>
         <div className="sm:col-span-1 col-span-full">
           <div className="px-4">
-            <h2 className="py-4 text-slate-700 border border-blue-300 text-center  ">
+            <h2 className="py-4 text-slate-700 dark:text-white/85 border dark:border-white/15 border-blue-300 text-center  ">
               {selectedDate}
             </h2>
             <AvailabileTime appointmentTimes={appointmentTimes} />

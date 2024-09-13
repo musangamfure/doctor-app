@@ -99,7 +99,9 @@ export default function Footer() {
       <div className="gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
-            <img src="https://www.floatui.com/logo.svg" className="w-32" />
+            <h3 className="scroll-m-20 text-2xl text-white/65 font-extrabold tracking-tight lg:text-3xl">
+              Medico
+            </h3>
             <p className="leading-relaxed mt-2 text-[15px]">
               Lorem Ipsum has been the industry&#39;s standard dummy text ever
               since the 1500s.

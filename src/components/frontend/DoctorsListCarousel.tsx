@@ -47,6 +47,7 @@ export default function DoctorsListCarousel({
       // deviceType={}
       dotListClass="custom-dot-list-style"
       itemClass="px-4 py-6"
+      renderButtonGroupOutside={true}
     >
       {[...new Array(4)].map((_, i) => {
         return (

@@ -20,7 +20,7 @@ export default function DoctorList({
       <div className="py-4 flex items-center justify-between">
         {isInPersonal ? (
           <Link
-            className="py-1 px-2 text-blue-500 text-sm flex items-center gap-1 bg-white/50"
+            className="py-2 px-2 text-blue-500 dark:text-white/80 text-sm flex items-center gap-1 bg-white/50 dark:bg-slate-950 dark:border-white/85 border border-blue-600 rounded-sm"
             href="#"
           >
             <Map size={20} className="flex-shrink-0" />
@@ -30,7 +30,7 @@ export default function DoctorList({
           <ToggleButton />
         )}
         <Link
-          className="py-3 px-6 border border-blue-600 bg-white/50 rounded-r-sm"
+          className="py-3 px-6 border border-blue-600 dark:border-white/85 bg-white/50 dark:bg-slate-950 rounded-r-sm"
           href="#"
         >
           See all

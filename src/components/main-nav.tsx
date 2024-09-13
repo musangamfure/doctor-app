@@ -13,7 +13,7 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-4 flex items-center space-x-2 lg:mr-6">
-        <span className="hidden font-bold text-xl lg:inline-block">
+        <span className="scroll-m-20 text-2xl text-white/65 font-extrabold tracking-tight lg:text-3xl">
           {siteConfig.name}
         </span>
       </Link>

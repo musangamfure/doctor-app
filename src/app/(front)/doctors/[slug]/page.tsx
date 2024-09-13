@@ -7,8 +7,8 @@ import React from "react";
 export default function DoctorsPage() {
   return (
     <div>
-      <Container className="bg-slate-50 py-10 ">
-        <div className="max-w-4xl mx-auto shadow-md  px-4 rounded-lg bg-white ">
+      <Container className="bg-slate-50 py-10 dark:bg-slate-950">
+        <div className="max-w-4xl mx-auto shadow-md  dark:border dark:border-white/15 px-4 rounded-lg bg-white dark:bg-slate-950 ">
           <div className="py-6 px-8">
             <div className="py-6 px-8 flex items-center justify-between">
               <div className="">
@@ -34,7 +34,7 @@ export default function DoctorsPage() {
             <DoctorDetails />
           </div>
         </div>
-        <div className="fixed bottom-0 left-0 right-0 w-full bg-white shadow-lg ">
+        <div className="fixed bottom-0 left-0 right-0 w-full bg-white shadow-lg dark:bg-neutral-950 ">
           <div className="max-w-4xl mx-auto ">
             <BookingCard
               price={145}

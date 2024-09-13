@@ -29,7 +29,7 @@ export default function DoctorDetails() {
     "Get $10 off this visit as a Sesame member. Activate today!";
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 dark:bg-slate-950">
       <div className="flex justify-between items-center ">
         <button
           onClick={() => setActive("details")}

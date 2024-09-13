@@ -3,9 +3,11 @@
 import Container from "@/components/frontend/Container";
 import Footer from "@/components/frontend/Footer";
 import SiteHeader from "@/components/site-header";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import React, { ReactNode } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
       <SiteHeader />

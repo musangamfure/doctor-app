@@ -8,8 +8,25 @@ import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import ModeToggle from "../components/ModeToggle";
 import { buttonVariants } from "../components/ui/button";
+import { Session } from "next-auth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export default function SiteHeader() {
+  const router = useRouter();
+  async function handleLogout() {
+    await signOut();
+    router.push("/login");
+  }
   return (
     <header className="sticky px-10 py-2 top-0 z-50 w-full border-border/40 bg-background/95 backdrop-blur dark:bg-black supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
@@ -28,6 +45,7 @@ export default function SiteHeader() {
                 Sign In
               </Link>
             </div>
+
             <ModeToggle />
           </nav>
         </div>

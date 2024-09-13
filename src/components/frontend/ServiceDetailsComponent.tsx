@@ -15,12 +15,14 @@ const ServiceDetailsComponent: React.FC<ServiceDetailsComponentProps> = ({
   additionalInfo,
 }) => {
   return (
-    <div className="bg-white p-6  w-full">
-      <div>
-        <p className="text-gray-700 mb-4">{details}</p>
+    <div className="bg-white p-6 dark:bg-slate-950  w-full">
+      <div className="">
+        <p className="text-gray-500 dark:text-white/65 mb-4">{details}</p>
         <div className="flex justify-between mb-4">
           <div>
-            <h4 className="font-semibold text-gray-700 mb-2">Included</h4>
+            <h4 className="font-semibold text-gray-700 dark:text-white/85 mb-2">
+              Included
+            </h4>
             {included.map((item, index) => (
               <div
                 key={index}
@@ -32,9 +34,14 @@ const ServiceDetailsComponent: React.FC<ServiceDetailsComponentProps> = ({
             ))}
           </div>
           <div>
-            <h4 className="font-semibold text-gray-700 mb-2">Excluded</h4>
+            <h4 className="font-semibold text-gray-700 dark:text-white/85 mb-2">
+              Excluded
+            </h4>
             {excluded.map((item, index) => (
-              <div key={index} className="flex items-center text-gray-600 mb-1">
+              <div
+                key={index}
+                className="flex items-center text-gray-600 dark:text-white/65   mb-1"
+              >
                 <XCircle className="mr-2" />
                 <span>{item}</span>
               </div>
@@ -44,7 +51,7 @@ const ServiceDetailsComponent: React.FC<ServiceDetailsComponentProps> = ({
 
         <div className="border-t pt-2">
           <button
-            className="w-full text-left text-gray-700 font-semibold"
+            className="w-full text-left text-gray-700 dark:text-white/85  font-semibold"
             onClick={() => alert("Service details clicked")}
           >
             Service details
@@ -52,7 +59,7 @@ const ServiceDetailsComponent: React.FC<ServiceDetailsComponentProps> = ({
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-gray-100 rounded-lg flex justify-between items-center">
+      <div className="mt-6 p-4 bg-gray-100 dark:bg-white/85 rounded-lg flex justify-between items-center">
         <p className="text-gray-600 text-sm">{additionalInfo}</p>
         <a href="#" className="text-purple-600 text-sm font-semibold">
           Read more

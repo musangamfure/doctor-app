@@ -3,6 +3,7 @@ import {
   BarChart,
   Bell,
   Folder,
+  Globe,
   Grid2X2,
   Home,
   LineChart,
@@ -72,6 +73,11 @@ export default async function Sidebar() {
       label: "Settings",
       icon: <Settings className="h-4 w-4" />,
       path: "/dashboard/settings",
+    },
+    {
+      label: "Online",
+      icon: <Globe className="h-4 w-4" />,
+      path: "/",
     },
   ];
 

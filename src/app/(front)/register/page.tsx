@@ -7,8 +7,8 @@ import React from "react";
 
 export default function RegisterPage() {
   return (
-    <Container className="bg-blue-100 py-8 min-h-screen">
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 max-w-4xl mx-auto bg-white border-gray-200 rounded-lg shadow overflow-hidden  dark:bg-gray-800 dark:border-gray-700">
+    <Container className="bg-blue-100 pt-8 pb-16 min-h-screen dark:bg-black">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 max-w-4xl mx-auto bg-white border-gray-200 rounded-lg shadow overflow-hidden  dark:bg-black dark:border dark:border-white/50">
         <div className="hidden md:flex">
           <Image
             src={"/bg-doctor.png"}
@@ -18,9 +18,8 @@ export default function RegisterPage() {
             className="object-cover"
           />
         </div>
-        <div className="">
-          <RegisterForm />
-        </div>
+
+        <RegisterForm />
       </div>
     </Container>
   );

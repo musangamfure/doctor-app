@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import TransitionalText from "./TransitionalText";
 import { Pill } from "lucide-react";
+import { CommandMenu } from "../command-menu";
 
 const Hero = () => {
   return (
@@ -24,7 +25,10 @@ const Hero = () => {
                   mental health & more. Book an appointment in minutes.
                 </p>
 
-                <SearchBar />
+                {/* <SearchBar /> */}
+                <div className="w-full flex-1 md:w-auto md:flex-none">
+                  <CommandMenu />
+                </div>
                 <ul className="flex flex-wrap items-center mt-8">
                   <li>
                     <a

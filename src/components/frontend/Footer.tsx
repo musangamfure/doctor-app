@@ -72,7 +72,7 @@ export default function Footer() {
       href: "",
       name: "LinkedIn",
       icon: Linkedin,
-      color: "#0077b5",
+      color: "#000000",
     },
     {
       href: "",
@@ -95,7 +95,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
+    <footer className="text-gray-500 bg-white  px-4 dark:bg-black dark:text-white/85 py-5 max-w-screen-xl mx-auto md:px-8">
       <div className="gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
@@ -109,7 +109,9 @@ export default function Footer() {
         <div className="flex-1 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
-              <h4 className="text-gray-800 font-medium">{item.label}</h4>
+              <h4 className="text-gray-800 dark:text-white font-semibold">
+                {item.label}
+              </h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
                   <a
@@ -135,7 +137,7 @@ export default function Footer() {
               return (
                 <li
                   key={i}
-                  className="w-10 h-10 border rounded-full flex items-center justify-center"
+                  className="w-10 h-10 border rounded-full flex items-center justify-center dark:bg-white/85"
                 >
                   <a href={item.href}>
                     {Icon && <Icon color={item.color} className="w-6 h-6" />}

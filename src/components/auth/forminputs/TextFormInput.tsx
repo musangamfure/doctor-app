@@ -30,7 +30,7 @@ export default function TextFormInput({
         name={`${name}`}
         id={`${name}`}
         autoComplete="name"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-white/30 focus:border-white/25 block w-full p-2.5 dark:bg-black dark:border-white/15 dark:placeholder-black dark:text-white"
         placeholder={placeholder}
         type={type}
       />

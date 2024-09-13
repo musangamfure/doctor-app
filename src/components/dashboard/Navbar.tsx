@@ -2,11 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-
-import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import {
-  CircleUser,
   Home,
   LineChart,
   Menu,
@@ -36,8 +33,30 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import ModeToggle from "../ModeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Session, User } from "next-auth";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
-export default function Navbar() {
+export default function Navbar({ session }: { session: Session }) {
+  const user: User = session.user;
+  const names = user?.name ?? "";
+  function getInitials(name: string) {
+    if (!name) return "";
+    const nameParts = name.split(" ");
+    const initials = nameParts
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("");
+
+    return initials;
+  }
+
+  const router = useRouter();
+  async function handleLogout() {
+    await signOut();
+    router.push("/login");
+  }
+
   return (
     <header className="flex h-14 items-center dark:bg-black gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
       <Sheet>
@@ -50,11 +69,11 @@ export default function Navbar() {
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
             <Link
-              href="#"
+              href="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
               <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
+              <span className="sr-only">Midico</span>
             </Link>
             <Link
               href="#"
@@ -128,18 +147,26 @@ export default function Navbar() {
       <ModeToggle />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="secondary" size="icon" className="rounded-full">
-            <CircleUser className="h-5 w-5" />
-            <span className="sr-only">Toggle user menu</span>
-          </Button>
+          <Avatar className="cursor-pointer">
+            {user.image ? (
+              <AvatarImage src="https://github.com/shadcn.png" alt="medico" />
+            ) : (
+              <AvatarFallback>{getInitials(names)}</AvatarFallback>
+            )}
+          </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-light text-muted-foreground">
+            {user.email}
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleLogout()}>
+            Logout
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

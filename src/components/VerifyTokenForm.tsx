@@ -75,7 +75,10 @@ export default function VerifyTokenForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full space-y-6 "
+      >
         {showNotification && (
           <Alert color="failure" icon={HiInformationCircle}>
             <span className="font-medium">Wrong Token!</span> Please Check the
@@ -87,8 +90,8 @@ export default function VerifyTokenForm({
           name="token"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Enter Your Token Here</FormLabel>
-              <FormControl>
+              <FormLabel className="pb-3">Enter Your Token Here:</FormLabel>
+              <FormControl className="w-full ">
                 <InputOTP maxLength={6} {...field}>
                   <InputOTPGroup>
                     <InputOTPSlot index={0} />
@@ -103,8 +106,8 @@ export default function VerifyTokenForm({
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormDescription>
-                Please enter the 6-figure pass code sent to your email.
+              <FormDescription className="py-2">
+                Please enter correctly 6-figure pass code and sumit.
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -10,15 +10,15 @@ export default function Footer() {
           name: "List Your Service",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Blog",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Team",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Careers",
         },
       ],
@@ -27,19 +27,19 @@ export default function Footer() {
       label: "Resources",
       items: [
         {
-          href: "javascript:void()",
+          href: "/",
           name: "contact",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Support",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Docs",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Pricing",
         },
       ],
@@ -48,19 +48,19 @@ export default function Footer() {
       label: "About",
       items: [
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Terms",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "License",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "Privacy",
         },
         {
-          href: "javascript:void()",
+          href: "/",
           name: "About US",
         },
       ],
@@ -99,7 +99,7 @@ export default function Footer() {
       <div className="gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
-            <h3 className="scroll-m-20 text-2xl text-white/65 font-extrabold tracking-tight lg:text-3xl">
+            <h3 className="scroll-m-20 text-2xl dark:text-white/65 font-extrabold tracking-tight lg:text-3xl">
               Medico
             </h3>
             <p className="leading-relaxed mt-2 text-[15px]">

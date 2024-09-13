@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { siteConfig } from "../../config/site";
@@ -21,7 +23,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
-export default function SiteHeader() {
+export default function SiteHeader({ session }: { session: Session | null }) {
+  const user = session?.user;
+  const names = user?.name ?? "";
+
+  function getInitials(name: string) {
+    if (!name) return "";
+    const nameParts = name.split(" ");
+    const initials = nameParts
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("");
+
+    return initials;
+  }
+
   const router = useRouter();
   async function handleLogout() {
     await signOut();
@@ -37,14 +52,45 @@ export default function SiteHeader() {
             <CommandMenu />
           </div>
           <nav className="flex gap-2 items-center">
-            <div className="lg:flex items-center max-lg:flex-col lg:px-0 px-3 mb-3 lg:mb-0 text-left lg:space-x-4">
-              <Link
-                href="/login"
-                className="max-lg:hidden px-2 py-[7px] border-[1px] rounded-md hover:text-neutral-400 "
-              >
-                Sign In
-              </Link>
-            </div>
+            {session && session.user && user?.email ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    {user.image ? (
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="medico"
+                      />
+                    ) : (
+                      <AvatarFallback>{getInitials(names)}</AvatarFallback>
+                    )}
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="font-light text-muted-foreground">
+                    {user.email}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem onClick={() => handleLogout()}>
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="lg:flex items-center max-lg:flex-col lg:px-0 px-3 mb-3 lg:mb-0 text-left lg:space-x-4">
+                <Link
+                  href="/login"
+                  className="max-lg:hidden px-2 py-[7px] border-[1px] rounded-md hover:text-neutral-400 "
+                >
+                  Sign In
+                </Link>
+              </div>
+            )}
 
             <ModeToggle />
           </nav>

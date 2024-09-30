@@ -20,9 +20,8 @@ export default function Princing() {
         "Manage up to 50 appointments per month",
         "Basic patient recod management",
         "Email notifications for  appointments",
-
-        ,
       ],
+      getStarted: "/register?role=DOCTOR&plan=free",
     },
     {
       name: "Professional",
@@ -37,6 +36,7 @@ export default function Princing() {
         "SMS notifications for appointments",
         "Customizable clinic profile",
       ],
+      getStarted: "/register?role=DOCTOR&plan=professional",
     },
     {
       name: "Enterprise",
@@ -52,6 +52,7 @@ export default function Princing() {
         "Priority customer support",
         "Integration with electronic health records systems",
       ],
+      getStarted: "/register?role=DOCTOR&plan=enterprise",
     },
   ];
 
@@ -107,9 +108,12 @@ export default function Princing() {
                     </Tooltip>
                   </TooltipProvider>
                 </div>
-                <button className="px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700">
-                  <Link href="#">Get Started</Link>
-                </button>
+                <Link
+                  href={item.getStarted}
+                  className="px-3 py-3 block text-center mx-auto w-[80%] rounded-lg  font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
+                >
+                  Get Started
+                </Link>
               </div>
               <ul className="p-8 space-y-3">
                 <li className="pb-2 text-gray-800 dark:text-white/85 font-medium">

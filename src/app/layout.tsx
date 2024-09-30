@@ -4,6 +4,10 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "../../config/site";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { OnboardingContectProvider } from "../../context/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -67,15 +71,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <Providers>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <OnboardingContectProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </OnboardingContectProvider>
         </Providers>
       </body>
     </html>

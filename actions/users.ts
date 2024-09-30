@@ -9,7 +9,7 @@ import EmailTemplate from "@/components/emails/EmailTemplate";
 
 export async function createUser(formData: RegisterInputProps) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const { email, fullName, role, phone, password } = formData;
+  const { email, fullName, role, phone, password, plan } = formData;
   try {
     const existingUser = await prismaClient.user.findUnique({
       where: {
@@ -41,6 +41,7 @@ export async function createUser(formData: RegisterInputProps) {
         role,
         password: hashedPassword,
         token: userToken,
+        plan,
       },
     });
     //Send an Email with the Token on the link as a search param
@@ -104,6 +105,43 @@ export async function updateUserById(id: string) {
     } catch (error) {
       return {
         error: "Error updating user",
+      };
+    }
+  }
+}
+
+export async function getTrackingNumberById(trackingNumber: string) {
+  if (trackingNumber) {
+    try {
+      const existingdoctorProfile = await prismaClient.doctorProfile.findUnique(
+        {
+          where: {
+            trackingNumber,
+          },
+        }
+      );
+      if (!existingdoctorProfile) {
+        return {
+          data: null,
+          error:
+            "Doctor with this tracking number ( " +
+            trackingNumber +
+            " ) does not exist in the Database",
+          status: 404,
+        };
+      }
+
+      return {
+        data: existingdoctorProfile,
+        error: null,
+        status: 200,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        data: null,
+        status: 500,
+        error: "Something went wrong",
       };
     }
   }

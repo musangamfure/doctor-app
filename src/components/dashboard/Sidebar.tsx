@@ -1,23 +1,18 @@
 "use client";
+
 import {
-  BarChart,
+  AlarmClock,
   Bell,
-  Folder,
-  Globe,
-  Grid2X2,
   Home,
-  LineChart,
-  Package,
+  ListCheck,
+  Mail,
   Package2,
-  Plus,
   Settings,
-  ShoppingCart,
   Users,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import LogoutButton from "../auth/forminputs/LogoutButton";
 import {
   Card,
   CardContent,
@@ -28,58 +23,114 @@ import {
 import { Badge } from "../ui/badge";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-// import LogoutButton from "./LogoutButton";
-// import { getCategories } from "@/actions/categories";
+import { Session } from "next-auth";
 
-export default async function Sidebar() {
-  //   const categories = (await getCategories()) || [];
+export default function Sidebar({ session }: { session: Session }) {
+  const { user } = session;
+  const role = user?.role;
   const pathName = usePathname();
-  const sideBarLinks = [
-    {
-      label: "Dashboard",
-      icon: <Home className="h-4 w-4" />,
-      path: "/dashboard",
-    },
-    {
-      label: "Products",
-      icon: <Package className="h-4 w-4" />,
-      path: "/dashboard/products",
-    },
-    {
-      label: "Orders",
-      icon: <ShoppingCart className="h-4 w-4" />,
-      path: "/dashboard/orders",
-      badge: (
-        <Badge
-          className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
-          color=""
-        >
-          12
-        </Badge>
-      ),
-    },
-    {
-      label: "Customers",
-      icon: <Users className="h-4 w-4" />,
-      path: "/dashboard/customers",
-    },
-    {
-      label: "Analytics",
-      icon: <LineChart className="h-4 w-4" />,
-      path: "/dashboard/categories",
-    },
+  const roles = {
+    USER: [
+      {
+        label: "Dashboard",
+        icon: <Home className="h-4 w-4" />,
+        path: "/dashboard/user",
+      },
+      {
+        label: "My Appointments",
+        icon: <AlarmClock className="h-4 w-4" />,
+        path: "/dashboard/user/appointments",
+        badge: (
+          <Badge
+            className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+            color=""
+          >
+            12
+          </Badge>
+        ),
+      },
+      {
+        label: "Settings",
+        icon: <Settings className="h-4 w-4" />,
+        path: "/dashboard/user/settings",
+      },
+    ],
 
-    {
-      label: "Settings",
-      icon: <Settings className="h-4 w-4" />,
-      path: "/dashboard/settings",
-    },
-    {
-      label: "Online",
-      icon: <Globe className="h-4 w-4" />,
-      path: "/",
-    },
-  ];
+    DOCTOR: [
+      {
+        label: "Dashboard",
+        icon: <Home className="h-4 w-4" />,
+        path: "/dashboard",
+      },
+      {
+        label: "Tasks",
+        icon: <ListCheck className="h-4 w-4" />,
+        path: "/dashboard/doctor/tasks",
+        badge: (
+          <Badge
+            className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+            color=""
+          >
+            12
+          </Badge>
+        ),
+      },
+      {
+        label: "Patients",
+        icon: <Users className="h-4 w-4" />,
+        path: "/dashboard/patients",
+      },
+      {
+        label: "Inbox",
+        icon: <Mail className="h-4 w-4" />,
+        path: "/dashboard/doctor/inbox",
+      },
+
+      {
+        label: "Settings",
+        icon: <Settings className="h-4 w-4" />,
+        path: "/dashboard/doctor/settings",
+      },
+    ],
+
+    ADMIN: [
+      {
+        label: "Dashboard",
+        icon: <Home className="h-4 w-4" />,
+        path: "/dashboard",
+      },
+      {
+        label: "Doctors",
+        icon: <Users className="h-4 w-4" />,
+        path: "/dashboard/doctors",
+      },
+      {
+        label: "Patients",
+        icon: <Users className="h-4 w-4" />,
+        path: "/dashboard/patients",
+        badge: (
+          <Badge
+            className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+            color=""
+          >
+            12
+          </Badge>
+        ),
+      },
+      {
+        label: "appointments",
+        icon: <AlarmClock className="h-4 w-4" />,
+        path: "/dashboard/appointments",
+      },
+      {
+        label: "Settings",
+        icon: <Settings className="h-4 w-4" />,
+        path: "/dashboard/settings",
+      },
+    ],
+  };
+
+  let sideBarLinks = roles[role] || [];
 
   return (
     <div className="hidden border-r bg-muted/40 md:block dark:bg-black">

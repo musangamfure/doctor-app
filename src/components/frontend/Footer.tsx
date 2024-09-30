@@ -130,7 +130,7 @@ export default function Footer() {
       </div>
       <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
         <div className="mt-4 sm:mt-0">
-          © {new Date().getFullYear()} Float UI All rights reserved.
+          © {new Date().getFullYear()} Medico All rights reserved.
         </div>
         <div className="mt-6 sm:mt-0">
           <ul className="flex items-center space-x-4">

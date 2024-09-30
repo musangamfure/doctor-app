@@ -32,7 +32,7 @@ export const EmailTemplate = ({
     <Body style={main}>
       <Container style={container}>
         <Img
-          src={`${baseUrl}/static/logo.png`}
+          src="https://utfs.io/f/QfiCp4npyqgMZPYb49GtUBCNsebn28pRXrMqkO3FltKHu9wS"
           width="32"
           height="32"
           alt="Claridy"

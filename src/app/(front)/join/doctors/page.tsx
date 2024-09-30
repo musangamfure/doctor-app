@@ -41,13 +41,13 @@ export default function page() {
       title: "Begin Your Journey",
       description:
         " Start a new application to join our network of healthcare providers",
-      link: "/join/doctors",
+      link: "/register?roe=DOCTOR&plan=free",
       linkTitle: "Start New Application",
     },
     {
       title: "Resume Application",
       description: "Pick up where you left off and complete your application",
-      link: "/join/doctors",
+      link: "/onboarding/resume",
       linkTitle: "Continue Application",
     },
     {
@@ -161,7 +161,7 @@ export default function page() {
                   <h3 className="text-2xl font-semibold dark:text-white/85  text-white py-2">
                     {card.title}
                   </h3>
-                  <p className="text-muted-foreground dark:text-white/65 text-xs">
+                  <p className=" text-white/80 dark:text-white/85 text-xs">
                     {card.description}
                   </p>
                   <CustomButton

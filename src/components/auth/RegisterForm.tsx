@@ -11,7 +11,13 @@ import { UserRole } from "@prisma/client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export default function RegisterForm({ role = "USER" }: { role?: UserRole }) {
+export default function RegisterForm({
+  role = "USER",
+  plan,
+}: {
+  role?: string | string[] | undefined;
+  plan?: string | string[] | undefined;
+}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -23,6 +29,7 @@ export default function RegisterForm({ role = "USER" }: { role?: UserRole }) {
 
   async function onSubmit(data: RegisterInputProps) {
     data.role = role;
+    data.plan = plan;
     setIsLoading(true);
     try {
       const user = await createUser(data);

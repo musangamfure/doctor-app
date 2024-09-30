@@ -16,6 +16,10 @@ export default async function VerifyAccount({
   //Get a User
   const user = await getUserById(id);
   const userToken = user && "token" in user ? user.token : undefined;
+  const role = user && "role" in user ? user.role : undefined;
+  const plan =
+    user && "plan" in user ? (user.plan as string | undefined) : undefined;
+
   return (
     <div className="min-h-screen dark:bg-black flex items-center justify-center">
       <Card className="mx-auto max-w-md">
@@ -30,7 +34,12 @@ export default async function VerifyAccount({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <VerifyTokenForm userToken={userToken} id={id} />
+          <VerifyTokenForm
+            role={role}
+            plan={plan}
+            userToken={userToken}
+            id={id}
+          />
         </CardContent>
       </Card>
     </div>

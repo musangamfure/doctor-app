@@ -47,48 +47,64 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  email         String    @unique
+  email         String         @unique
   phone         String
   emailVerified DateTime?
   image         String?
-  role          UserRole  @default(USER)
+  role          UserRole       @default(USER)
+  plan          String?
   password      String
   accounts      Account[]
   sessions      Session[]
-  isVerfied     Boolean   @default(false)
+  doctorProfile DoctorProfile?
+  isVerfied     Boolean        @default(false)
   token         Int
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
-// model Category {
-//   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-//   title       String
-//   slug        String    @unique
-//   imageUrl    String?
-//   demoLink    String?
-//   description String?
-//   products    Product[]
-
-//   createdAt DateTime  @default(now())
-//   updatedAt DateTime? @updatedAt
-// }
-
-// model Product {
-//   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-//   title         String
-//   slug          String   @unique
-//   price         Float?
-//   qty           Int?
-//   imageUrl      String?
-//   productImages String[]
-//   features      String[]
-//   description   String?
-//   categoryId    String   @db.ObjectId
-//   category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-//   createdAt DateTime  @default(now())
-//   updatedAt DateTime? @updatedAt
-// }
+model DoctorProfile {
+  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName                String
+  lastName                 String
+  middleName               String?
+  dob                      DateTime?
+  gender                   String
+  profilePicture           String?
+  bio                      String?
+  medicalLicense           String?
+  page                     String
+  trackingNumber           String    @unique
+  yearsOfExperience        Int?
+  medicalLicenseExpiry     DateTime?
+  email                    String?
+  phone                    String?
+  country                  String?
+  city                     String?
+  state                    String?
+  hospitalName             String?
+  hospitalAddress          String?
+  hospitalEmailAddress     String?
+  hospitalContactNumber    String?
+  hospitalHoursOfOperation Int?
+  hospitalWebsite          String?
+  servicesOffered          String[]
+  insuranceAccepted        String?
+  languageSpoken           String[]
+  educationHistory         String?
+  research                 String?
+  accomplishments          String?
+  additionDocs             String[]
+  meettingDuration         String?
+  medicalSchool            String?
+  graduationYear           String?
+  primarySpecialization    String?
+  otherSpecialization      String[]
+  boardCertificates        String[]
+  userId                   String    @unique @db.ObjectId
+  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime? @updatedAt
+}

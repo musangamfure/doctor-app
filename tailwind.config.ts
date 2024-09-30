@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
 const flowbite = require("flowbite-react/tailwind");
+import { withUt } from "uploadthing/tw";
 
-const config: Config = {
+export default withUt({
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -101,5 +102,4 @@ const config: Config = {
     flowbite.plugin(),
     require("tailwindcss-animate"),
   ],
-};
-export default config;
+});

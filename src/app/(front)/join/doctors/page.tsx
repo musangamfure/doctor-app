@@ -66,25 +66,23 @@ export default function page() {
   ];
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="min-h-screen py-16  dark:bg-slate-950">
       <Container className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="">
-          <h2 className="text-2xl md:text-4xl !leading-[1.208] font-semibold">
+          <h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             Build a thriving
-            <span className="text-purple-600 font-bold mx-2 ">
+            <span className="text-purple-600 font-extrabold mx-2 ">
               direct-pay
             </span>{" "}
             practice with Medical App.
           </h2>
-          <p className="py-4 font-medium text-muted-foreground">
+          <p className="py-6 font-medium text-muted-foreground">
             By offering secure payment processing, automated appointment
             scheduling, and real-time communication, medical apps enhance
-            patient satisfaction and streamline operations. Providers can focus
-            more on patient care, while the app handles administrative tasks,
-            billing transparency, and compliance.
+            patient satisfaction and streamline operations.
           </p>
           <CustomButton
-            className="bg-purple-600 hover:bg-purple-500 my-6 "
+            className="bg-purple-600 hover:bg-purple-500 my-6 dark:text-white/90 font-semibold "
             title="List Your Practice"
           />
           {features.map((feature, index) => (
@@ -158,17 +156,17 @@ export default function page() {
               return (
                 <div
                   key={index}
-                  className="bg-slate-500 p-4 rounded-lg shadow-sm "
+                  className="bg-slate-500 dark:bg-neutral-950 border-2 dark:border-gray-500  p-4 rounded-lg shadow-sm "
                 >
-                  <h3 className="text-2xl font-semibold text-white py-2">
+                  <h3 className="text-2xl font-semibold dark:text-white/85  text-white py-2">
                     {card.title}
                   </h3>
-                  <p className="text-muted-foreground text-white text-xs">
+                  <p className="text-muted-foreground dark:text-white/65 text-xs">
                     {card.description}
                   </p>
                   <CustomButton
                     href={card.link}
-                    className="bg-purple-600 hover:bg-purple-500 my-6 "
+                    className="bg-purple-600 hover:bg-purple-500 my-6 dark:text-white/90 font-semibold "
                     title={card.linkTitle}
                   />
                 </div>

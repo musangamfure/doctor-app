@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function ({
+export default function ShadSelectInput({
   options,
   label,
   optionTitle,

@@ -2,14 +2,8 @@
 
 import React, { useState } from "react";
 
-import {
-  Loader,
-  Map,
-  PictureInPicture,
-  PictureInPicture2,
-  Video,
-} from "lucide-react";
-import { CardContent, CardFooter } from "@/components/ui/card";
+import { Loader, Map, Video } from "lucide-react";
+import { CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DoctorProfile, Service, Specialty, Symptom } from "@prisma/client";
 
@@ -17,10 +11,6 @@ import toast from "react-hot-toast";
 import { updateDoctorProfileServiceSettings } from "../../../../actions/services";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { sl } from "date-fns/locale";
-import TextFormInput from "@/components/auth/forminputs/TextFormInput";
-import Input from "postcss/lib/input";
-
 export type servicesProps = {
   label: string;
   value: string;
@@ -37,25 +27,13 @@ export default function UpdateServiceForm({
   symptoms: Symptom[] | null;
   profile: DoctorProfile | undefined | null;
 }) {
-  //   const { data: session, status } = useSession();
-
   const profileId = profile?.id;
 
   console.log(profile);
 
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader className="animate-spin h-4 w-4 mr-2" />
-        <span>Loading...</span>
-      </div>
-    );
-  }
-
   const [selectedServiceId, setSelectedServiceId] = useState(
     profile?.serviceId
   );
-
   const [specialtyId, setSpecialtyId] = useState(profile?.specialtyId);
   const [symptomIds, setSymptomIds] = useState<string[]>(
     profile?.symptomIds || []
@@ -67,7 +45,6 @@ export default function UpdateServiceForm({
   const [savingOperation, setSavingOperation] = useState(false);
   const [operationMode, setOperationMode] = useState(profile?.operationMode);
   const [price, setPrice] = useState(profile?.hourlWage);
-  console.log(price);
 
   const operationModes = [
     {
@@ -172,192 +149,201 @@ export default function UpdateServiceForm({
   }
   return (
     <>
-      <CardContent className="space-y-2">
-        <div className="py-4 p-4 border shadow rounded-md mt-4">
-          <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
-            Update Hour Price
-          </h2>
+      {status === "loading" ? (
+        <div className="flex justify-center items-center h-screen">
+          <Loader className="animate-spin h-4 w-4 mr-2" />
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <CardContent className="space-y-2">
+          <div className="py-4 p-4 border shadow rounded-md mt-4">
+            <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
+              Update Hour Price
+            </h2>
 
-          <div className=" flex items-center justify-between md:col-span-4">
-            <div className="relative mt-2 rounded-md shadow-sm">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span className="text-gray-500 sm:text-sm">$</span>
+            <div className=" flex items-center justify-between md:col-span-4">
+              <div className="relative mt-2 rounded-md shadow-sm">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <span className="text-gray-500 sm:text-sm">$</span>
+                </div>
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  className="block w-full rounded-md border-0 py-1.5 pl-7 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="100"
+                />
               </div>
-              <input
-                type="number"
-                name="price"
-                id="price"
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                className="block w-full rounded-md border-0 py-1.5 pl-7 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="100"
-              />
+
+              <Button
+                disabled={savingPrice}
+                onClick={handleUpdatePrice}
+                type="button"
+              >
+                {savingPrice ? "Saving..." : " Update Price"}
+              </Button>
             </div>
+          </div>
 
-            <Button
-              disabled={savingPrice}
-              onClick={handleUpdatePrice}
-              type="button"
-            >
-              {savingPrice ? "Saving..." : " Update Price"}
-            </Button>
+          <div className="border shadow rounded-md p-4 mt-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
+                Choose Your Operation Mode
+              </h2>
+              <Button
+                disabled={savingOperation}
+                onClick={handleUpdateOperationMode}
+                type="button"
+              >
+                {savingOperation ? "Saving..." : "Update opation mode"}
+              </Button>
+            </div>
+            <div className="grid grid-cols-4 gap-2 py-4">
+              {operationModes &&
+                operationModes.map((mode, i) => {
+                  const Icon = mode.icon;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => setOperationMode(mode.title)}
+                      key={i}
+                      className={cn(
+                        "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
+                        operationMode === mode.title
+                          ? "border-2 border-green-500 bg-slate-200"
+                          : ""
+                      )}
+                    >
+                      <Icon className="h-8 w-8" />
+                      <p className="text-xs">{mode.title}</p>
+                    </button>
+                  );
+                })}
+            </div>
           </div>
-        </div>
 
-        <div className="border shadow rounded-md p-4 mt-4">
-          <div className="flex items-center justify-between border-b pb-3">
-            <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
-              Choose Your Operation Mode
-            </h2>
-            <Button
-              disabled={savingOperation}
-              onClick={handleUpdateOperationMode}
-              type="button"
-            >
-              {savingOperation ? "Saving..." : "Update opation mode"}
-            </Button>
+          <div className="border shadow rounded-md p-4 mt-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
+                Choose Services You will offer
+              </h2>
+              <Button
+                disabled={savingServices}
+                onClick={handleUpdateServices}
+                type="button"
+              >
+                {savingServices ? "Saving..." : "Update Services"}
+              </Button>
+            </div>
+            <div className="grid grid-cols-4 gap-2 py-4">
+              {services &&
+                services.map((service, i) => {
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedServiceId(service.id)}
+                      key={i}
+                      className={cn(
+                        "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
+                        selectedServiceId === service.id
+                          ? "border-2 border-green-500 bg-slate-200"
+                          : ""
+                      )}
+                    >
+                      <Image
+                        src={service.imageUrl}
+                        alt={service.title}
+                        width={100}
+                        height={100}
+                        className="h-14 w-14"
+                      />
+                      <p className="text-xs">{service.title}</p>
+                    </button>
+                  );
+                })}
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-2 py-4">
-            {operationModes &&
-              operationModes.map((mode, i) => {
-                const Icon = mode.icon;
-                return (
-                  <button
-                    type="button"
-                    onClick={() => setOperationMode(mode.title)}
-                    key={i}
-                    className={cn(
-                      "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
-                      operationMode === mode.title
-                        ? "border-2 border-green-500 bg-slate-200"
-                        : ""
-                    )}
-                  >
-                    <Icon className="h-8 w-8" />
-                    <p className="text-xs">{mode.title}</p>
-                  </button>
-                );
-              })}
-          </div>
-        </div>
 
-        <div className="border shadow rounded-md p-4 mt-4">
-          <div className="flex items-center justify-between border-b pb-3">
-            <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
-              Choose Services You will offer
-            </h2>
-            <Button
-              disabled={savingServices}
-              onClick={handleUpdateServices}
-              type="button"
-            >
-              {savingServices ? "Saving..." : "Update Services"}
-            </Button>
+          <div className="border shadow rounded-md p-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
+                Choose Services You will offer
+              </h2>
+              <Button
+                disabled={savingSpecialties}
+                onClick={handleUpdateSpecialty}
+                type="button"
+              >
+                {savingSpecialties ? "Saving..." : " Update Specialty"}
+              </Button>
+            </div>
+            <div className="grid grid-cols-4 gap-2 py-4">
+              {specialties &&
+                specialties.map((specialty, i) => {
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setSpecialtyId(specialty.id)}
+                      className={cn(
+                        "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
+                        specialtyId === specialty.id
+                          ? "border-2 border-green-500 bg-slate-200"
+                          : ""
+                      )}
+                    >
+                      <p className="text-xs">{specialty.title}</p>
+                    </button>
+                  );
+                })}
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-2 py-4">
-            {services &&
-              services.map((service, i) => {
-                return (
-                  <button
-                    type="button"
-                    onClick={() => setSelectedServiceId(service.id)}
-                    key={i}
-                    className={cn(
-                      "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
-                      selectedServiceId === service.id
-                        ? "border-2 border-green-500 bg-slate-200"
-                        : ""
-                    )}
-                  >
-                    <Image
-                      src={service.imageUrl}
-                      alt={service.title}
-                      width={100}
-                      height={100}
-                      className="h-14 w-14"
-                    />
-                    <p className="text-xs">{service.title}</p>
-                  </button>
-                );
-              })}
-          </div>
-        </div>
+          <div className="border shadow rounded-md p-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
+                Choose Symptoms You will offer
+              </h2>
+              <Button
+                disabled={savingSymptoms}
+                onClick={handleUpdateSymptom}
+                type="button"
+              >
+                {savingSymptoms ? "Saving..." : "Update Symptoms"}
+              </Button>
+            </div>
+            <div className="grid grid-cols-4 gap-2 py-4">
+              {symptoms &&
+                symptoms.map((symptom, i) => {
+                  const isSelected = symptomIds.includes(symptom.id);
 
-        <div className="border shadow rounded-md p-4">
-          <div className="flex items-center justify-between border-b pb-3">
-            <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
-              Choose Services You will offer
-            </h2>
-            <Button
-              disabled={savingSpecialties}
-              onClick={handleUpdateSpecialty}
-              type="button"
-            >
-              {savingSpecialties ? "Saving..." : " Update Specialty"}
-            </Button>
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        if (isSelected) {
+                          setSymptomIds(
+                            symptomIds.filter((id) => id !== symptom.id)
+                          );
+                        } else {
+                          setSymptomIds([...symptomIds, symptom.id]);
+                        }
+                      }}
+                      className={cn(
+                        "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
+                        isSelected
+                          ? "border-2 border-green-500 bg-slate-200"
+                          : ""
+                      )}
+                    >
+                      <p className="text-xs">{symptom.title}</p>
+                    </button>
+                  );
+                })}
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-2 py-4">
-            {specialties &&
-              specialties.map((specialty, i) => {
-                return (
-                  <button
-                    key={i}
-                    onClick={() => setSpecialtyId(specialty.id)}
-                    className={cn(
-                      "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
-                      specialtyId === specialty.id
-                        ? "border-2 border-green-500 bg-slate-200"
-                        : ""
-                    )}
-                  >
-                    <p className="text-xs">{specialty.title}</p>
-                  </button>
-                );
-              })}
-          </div>
-        </div>
-        <div className="border shadow rounded-md p-4">
-          <div className="flex items-center justify-between border-b pb-3">
-            <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-2">
-              Choose Symptoms You will offer
-            </h2>
-            <Button
-              disabled={savingSymptoms}
-              onClick={handleUpdateSymptom}
-              type="button"
-            >
-              {savingSymptoms ? "Saving..." : "Update Symptoms"}
-            </Button>
-          </div>
-          <div className="grid grid-cols-4 gap-2 py-4">
-            {symptoms &&
-              symptoms.map((symptom, i) => {
-                const isSelected = symptomIds.includes(symptom.id);
-
-                return (
-                  <button
-                    key={i}
-                    onClick={() => {
-                      if (isSelected) {
-                        setSymptomIds(
-                          symptomIds.filter((id) => id !== symptom.id)
-                        );
-                      } else {
-                        setSymptomIds([...symptomIds, symptom.id]);
-                      }
-                    }}
-                    className={cn(
-                      "border flex items-center justify-center gap-1 flex-col py-2 px-3 rounded-md cursor-pointer",
-                      isSelected ? "border-2 border-green-500 bg-slate-200" : ""
-                    )}
-                  >
-                    <p className="text-xs">{symptom.title}</p>
-                  </button>
-                );
-              })}
-          </div>
-        </div>
-      </CardContent>
+        </CardContent>
+      )}
     </>
   );
 }

@@ -6,17 +6,17 @@ import { ServicesProps } from "../../../../types/types";
 export default function ServiceCard({ service }: { service: ServicesProps }) {
   return (
     <Link
-      href={"#"}
-      className="rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 duration-300 flex gap-6 overflow-hidden "
+      href={`/services/${service.slug}`}
+      className="rounded-md bg-slate-100  hover:bg-slate-200 dark:bg-neutral-800 duration-300 flex items-center gap-3 overflow-hidden px-2 "
     >
       <Image
-        src={service.image}
+        src={service.imageUrl}
         alt={service.title}
-        width={900}
-        height={900}
-        className="w-1/3 object-cover aspect-video"
+        width={1170}
+        height={848}
+        className="w-14 h-14 object-contain aspect-video"
       />
-      <div className="flex flex-col w-2/3 py-4">
+      <div className="flex flex-col  py-4">
         <h2>{service.title}</h2>
         <p className="text-[0.7rem]">936 Doctors available</p>
       </div>

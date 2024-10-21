@@ -54,10 +54,7 @@ export async function createDoctorProfile(formData: BioDataFormProps) {
   }
 }
 
-export async function updateDoctorProfile(
-  id: string | undefined,
-  data: BioDataFormProps
-) {
+export async function updateDoctorProfile(id: string | undefined, data: any) {
   if (id) {
     try {
       const updatedDoctorProfile = await prismaClient.doctorProfile.update({
@@ -251,5 +248,93 @@ export async function completeDoctorProfile(
         status: 500,
       };
     }
+  }
+}
+
+export async function getDoctorProfileById(userId: string | undefined) {
+  if (userId) {
+    try {
+      const doctorProfile = await prismaClient.doctorProfile.findUnique({
+        where: {
+          userId,
+        },
+        include: {
+          availability: true,
+        },
+      });
+      if (!doctorProfile) {
+        return {
+          data: null,
+          error: "Profile not found",
+          status: 404,
+        };
+      }
+      console.log(doctorProfile);
+      return {
+        data: doctorProfile,
+        error: null,
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        data: null,
+        error: "Error fetching profile",
+        status: 500,
+      };
+    }
+  }
+}
+
+export async function createAvailability(data: any) {
+  try {
+    const newAvailability = await prismaClient.availability.create({
+      data,
+    });
+    console.log(newAvailability);
+    return newAvailability;
+  } catch (error) {
+    console.error("Availability creation error:", error);
+    return {
+      data: null,
+      error: "Error creating availability",
+      status: 500,
+    };
+  }
+}
+
+export async function updateAvailabilityById(
+  id: string | undefined,
+  data: any
+) {
+  if (!id) {
+    console.error("No availability ID provided for update.");
+    return {
+      data: null,
+      error: "No availability ID provided",
+      status: 400,
+    };
+  }
+
+  try {
+    const updatedAvailability = await prismaClient.availability.update({
+      where: {
+        id,
+      },
+      data,
+    });
+
+    console.log("Availability updated:", updatedAvailability);
+    return {
+      data: updatedAvailability,
+      status: 200,
+    };
+  } catch (error) {
+    console.error(`Error updating availability with ID: ${id}`, error);
+
+    return {
+      data: null,
+      error: "Error updating availability",
+      status: 500,
+    };
   }
 }

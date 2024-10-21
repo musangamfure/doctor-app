@@ -1,7 +1,13 @@
 import React from "react";
 import TabsComponent from "./TabsComponent";
+import { getServices } from "../../../actions/services";
+import { getSpecialties } from "../../../actions/specialties";
+import { getSymptoms } from "../../../actions/symptoms";
 
-export default function TabledSection() {
+export default async function TabledSection() {
+  const services = (await getServices()).data || [];
+  const specialties = (await getSpecialties()).data || [];
+  const symptoms = (await getSymptoms()).data || [];
   return (
     <section className="pb-12 pt-20 dark:bg-dark lg:pb-[90px] lg:pt-14">
       <div className="container mx-auto">
@@ -18,7 +24,11 @@ export default function TabledSection() {
             </div>
           </div>
         </div>
-        <TabsComponent />
+        <TabsComponent
+          services={services}
+          specialties={specialties}
+          symptoms={symptoms}
+        />
       </div>
     </section>
   );

@@ -8,6 +8,8 @@ import React from "react";
 
 export default async function LoginPage() {
   const session = await getServerSession(authOptions);
+  const user = session?.user;
+
   if (session) {
     redirect("/dashboard");
   }

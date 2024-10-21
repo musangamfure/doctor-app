@@ -72,6 +72,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+
         <Providers>
           <OnboardingContectProvider>
             <ThemeProvider

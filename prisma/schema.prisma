@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -51,6 +45,7 @@ model User {
   name          String
   email         String         @unique
   phone         String
+  slug          String         @default("slug")
   emailVerified DateTime?
   image         String?
   role          UserRole       @default(USER)
@@ -59,10 +54,51 @@ model User {
   accounts      Account[]
   sessions      Session[]
   doctorProfile DoctorProfile?
-  isVerfied     Boolean        @default(false)
-  token         Int
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+
+  serviceId   String?    @db.ObjectId
+  service     Service?   @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  specialtyId String?    @db.ObjectId
+  specialty   Specialty? @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  symptomIds String[]
+
+  isVerfied Boolean  @default(false)
+  token     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  doctors  User[]
+  slug     String @unique
+  imageUrl String
+  title    String
+
+  doctorProfiles DoctorProfile[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Specialty {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  doctors User[]
+  slug    String @unique
+  title   String
+
+  doctorProfiles DoctorProfile[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Symptom {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String   @unique
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DoctorProfile {
@@ -103,8 +139,55 @@ model DoctorProfile {
   primarySpecialization    String?
   otherSpecialization      String[]
   boardCertificates        String[]
-  userId                   String    @unique @db.ObjectId
-  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  operationMode String? @default("Telehealth")
+  hourlWage     Int     @default(100)
+
+  serviceId    String?       @db.ObjectId
+  service      Service?      @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  specialtyId  String?       @db.ObjectId
+  specialty    Specialty?    @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  symptomIds   String[]      @db.ObjectId
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
+  availability Availability?
+}
+
+model Availability {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  doctorProfileId String        @unique @db.ObjectId
+  doctorProfile   DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  monday          String[]
+  tuesday         String[]
+  wednesday       String[]
+  thursday        String[]
+  friday          String[]
+  saturday        String[]
+  sunday          String[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Appointment {
+  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentDate          DateTime?
+  appointmentFormattedDate String?
+  doctorId                 String?
+  doctorProfileId          String?
+  charge                   Int?
+  appointmentTime          String?
+  firtName                 String?
+  lastName                 String?
+  gender                   String?
+  email                    String?
+  phone                    String?
+  dob                      DateTime?
+  appointmentReason        String?
+  medicalDocuments         String[]
+  occupation               String?
   createdAt                DateTime  @default(now())
-  updatedAt                DateTime? @updatedAt
+  updatedAt                DateTime  @updatedAt
 }

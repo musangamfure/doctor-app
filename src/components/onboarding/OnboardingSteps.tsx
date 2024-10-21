@@ -6,12 +6,19 @@ import { useSearchParams } from "next/navigation";
 import BioDataForm from "./BioDataForm";
 import ContactInfo from "./ContactInfo";
 import PracticeInfo from "./PracticeInfo";
-import EduccationInfo from "./EducationInfo";
+import EducationInfo from "./EducationInfo";
 import AdditionalInfo from "./AdditionalInfo";
 import ProfileInfo from "./ProfileInfo";
 import { useOnboardingContext } from "../../../context/context";
+import { Specialty } from "@prisma/client";
 
-export function DoctorsOnboardingForm({ id }: { id: string }) {
+export function DoctorsOnboardingForm({
+  id,
+  specialties,
+}: {
+  id: string;
+  specialties: Specialty[];
+}) {
   const params = useSearchParams();
   const page = params.get("page") ?? "bio-data";
   const { trackingNumber, savedDBData, doctorProfileId } =
@@ -63,7 +70,8 @@ export function DoctorsOnboardingForm({ id }: { id: string }) {
       title: "Education",
       page: "education",
       component: (
-        <EduccationInfo
+        <EducationInfo
+          specialties={specialties}
           page={page}
           nextPage="practice"
           title="Education Information"

@@ -2,16 +2,18 @@ import React from "react";
 import SectionHeading from "./SectionHeading";
 import ToggleButton from "./ToggleButton";
 import Link from "next/link";
-import { BaggageClaim } from "lucide-react";
 import { Map } from "lucide-react";
 import DoctorsListCarousel from "./DoctorsListCarousel";
+import { Doctor } from "../../../types/types";
 
 export default function DoctorList({
   title = "Telehealth Visit",
   isInPersonal = false,
+  doctors,
 }: {
   title?: string;
   isInPersonal?: boolean;
+  doctors: Doctor[];
 }) {
   return (
     <div>
@@ -37,7 +39,7 @@ export default function DoctorList({
         </Link>
       </div>
       <div className=" ">
-        <DoctorsListCarousel isInPersonal={isInPersonal} />
+        <DoctorsListCarousel doctors={doctors} isInPersonal={isInPersonal} />
       </div>
     </div>
   );

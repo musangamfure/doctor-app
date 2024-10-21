@@ -6,6 +6,8 @@ import bcrypt from "bcryptjs";
 
 import { Resend } from "resend";
 import EmailTemplate from "@/components/emails/EmailTemplate";
+import { create } from "domain";
+import createSlug from "../utils/slugFunction";
 
 export async function createUser(formData: RegisterInputProps) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -36,6 +38,7 @@ export async function createUser(formData: RegisterInputProps) {
     const newUser = await prismaClient.user.create({
       data: {
         name: fullName,
+        slug: createSlug(fullName),
         email,
         phone,
         role,
@@ -143,6 +146,112 @@ export async function getTrackingNumberById(trackingNumber: string) {
         status: 500,
         error: "Something went wrong",
       };
+    }
+  }
+}
+
+export async function getDoctorsWithProfiles() {
+  try {
+    const doctors = await prismaClient.user.findMany({
+      where: {
+        role: "DOCTOR",
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        slug: true,
+        phone: true,
+        doctorProfile: {
+          select: {
+            firstName: true,
+            lastName: true,
+            gender: true,
+            operationMode: true,
+            bio: true,
+            hourlWage: true,
+            specialtyId: true,
+            profilePicture: true,
+            availability: {
+              select: {
+                monday: true,
+                tuesday: true,
+                wednesday: true,
+                thursday: true,
+                friday: true,
+                saturday: true,
+                sunday: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return doctors;
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    throw error;
+  }
+}
+export async function getDoctorBySlug(slug: string) {
+  if (slug) {
+    try {
+      const doctor = await prismaClient.user.findFirst({
+        where: {
+          role: "DOCTOR",
+          slug,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          slug: true,
+          phone: true,
+          doctorProfile: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              gender: true,
+              operationMode: true,
+              bio: true,
+              hourlWage: true,
+              profilePicture: true,
+              primarySpecialization: true,
+              yearsOfExperience: true,
+              country: true,
+              state: true,
+              city: true,
+              otherSpecialization: true,
+              hospitalName: true,
+              hospitalWebsite: true,
+              servicesOffered: true,
+              insuranceAccepted: true,
+              research: true,
+              accomplishments: true,
+              hospitalHoursOfOperation: true,
+
+              availability: {
+                select: {
+                  monday: true,
+                  tuesday: true,
+                  wednesday: true,
+                  thursday: true,
+                  friday: true,
+                  saturday: true,
+                  sunday: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return doctor;
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      throw error;
     }
   }
 }

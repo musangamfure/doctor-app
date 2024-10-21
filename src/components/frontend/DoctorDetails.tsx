@@ -1,19 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import AvailabilityComponent from "./AvailableTime";
 import ServiceDetailsComponent from "./ServiceDetailsComponent";
 import Availability from "../availability";
+import { Doctor } from "../../../types/types";
 
-export default function DoctorDetails() {
+export default function DoctorDetails({ doctor }: { doctor: Doctor }) {
   const [active, setActive] = useState("availability");
-  const appointmentTimes = [
-    "6:30 pm",
-    "10:00 am",
-    "10:30 am",
-    "11:00 am",
-    "11:30 am",
-  ];
 
   const included = ["Referral to specialist", "Prescription, if recommended"];
   const excluded = [
@@ -53,10 +46,10 @@ export default function DoctorDetails() {
         </button>
       </div>
 
-      <div className="py-8">
+      <div className="pt-8">
         {active === "availability" ? (
           <div className="">
-            <Availability appointmentTimes={appointmentTimes} />
+            <Availability doctor={doctor} />
           </div>
         ) : (
           <div className="">

@@ -41,6 +41,7 @@ export default function RegisterForm({
         console.log(user.data);
       } else if (user) {
         toast.error(user.error);
+        setIsLoading(false);
       } else {
         toast.error("An error occurred while creating the user");
       }

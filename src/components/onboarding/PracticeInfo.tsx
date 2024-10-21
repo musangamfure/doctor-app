@@ -15,7 +15,16 @@ import toast from "react-hot-toast";
 import { updateDoctorPracticeById } from "../../../actions/onboarding";
 import { useOnboardingContext } from "../../../context/context";
 
-const insuranceOptions: string[] = ["Yes", "No"];
+const insuranceOptions = [
+  {
+    title: "Yes",
+    value: "yes",
+  },
+  {
+    title: "No",
+    value: "no",
+  },
+];
 
 export default function PracticeInfo({
   page,
@@ -154,6 +163,15 @@ export default function PracticeInfo({
             type="number"
             label="Hospital Hours of Operation"
             placeholder="Enter Hospital Hours of Operation"
+            register={register}
+            errors={errors}
+            className="col-span-full sm:col-span-1"
+          />
+          <TextFormInput
+            name="hourlWage"
+            type="number"
+            label="Hourly Wage"
+            placeholder="Enter Hourly Wage"
             register={register}
             errors={errors}
             className="col-span-full sm:col-span-1"

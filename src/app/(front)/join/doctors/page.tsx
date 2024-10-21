@@ -41,7 +41,7 @@ export default function page() {
       title: "Begin Your Journey",
       description:
         " Start a new application to join our network of healthcare providers",
-      link: "/register?roe=DOCTOR&plan=free",
+      link: "/register?role=DOCTOR&plan=free",
       linkTitle: "Start New Application",
     },
     {

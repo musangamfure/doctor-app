@@ -10,8 +10,18 @@ export const ourFileRouter = {
       return { uploadedBy: "doctor" };
     }
   ),
+  serviceImage: f({ image: { maxFileSize: "4MB" } }).onUploadComplete(
+    async ({ metadata, file }) => {
+      return { uploadedBy: "doctor" };
+    }
+  ),
 
   doctorProfessionDocs: f({
+    pdf: { maxFileSize: "4MB", maxFileCount: 4 },
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: "doctor", pdf: file.url };
+  }),
+  patientMedicalDocs: f({
     pdf: { maxFileSize: "4MB", maxFileCount: 4 },
   }).onUploadComplete(async ({ metadata, file }) => {
     return { uploadedBy: "doctor", pdf: file.url };

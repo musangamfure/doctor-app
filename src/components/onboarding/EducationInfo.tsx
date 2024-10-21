@@ -22,6 +22,7 @@ export default function EducationInfo({
   formId,
   userId,
   nextPage,
+  specialties,
 }: StepFormProps) {
   const { educationData, savedDBData, setEducationData } =
     useOnboardingContext();
@@ -57,13 +58,7 @@ export default function EducationInfo({
     },
   });
 
-  const options = [
-    "Cardiology",
-    "Dermatology",
-    "Emergency Medicine",
-    "Gastroenterology",
-    "General Surgery",
-  ];
+  const allSpecialties = specialties || [];
 
   async function onSubmit(data: EducationInfoProps) {
     data.page = page;
@@ -126,7 +121,7 @@ export default function EducationInfo({
           />
 
           <SelectInput
-            options={options}
+            options={allSpecialties}
             name="primarySpecialization"
             label="Select your primary specialization"
             placeholder="Select Specialization"

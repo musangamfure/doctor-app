@@ -6,75 +6,91 @@ import ServiceLists from "./services/ServiceLists";
 import LinkCards from "./doctors/LinkCards";
 
 import { ServicesProps } from "../../../types/types";
+import { getServices } from "../../../actions/services";
+import { Service, Specialty, Symptom } from "@prisma/client";
+import SymptomsCard from "../dashboard/SymptomsCard";
+import SymptomsLinkCard from "./doctors/SymptomsLinkCard";
 
-export default function TabsComponent() {
-  const services: ServicesProps[] = [
-    {
-      title: "Mental Health",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "ED consultation",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Psychology",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Anxienty",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Pain",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Depression",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Addiction",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Addiction",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Addiction",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-  ];
+type TabsComponentProps = {
+  services: Service[];
+  specialties: Specialty[];
+  symptoms: Symptom[];
+};
+
+export default function TabsComponent({
+  services,
+  specialties,
+  symptoms,
+}: TabsComponentProps) {
+  //
+
+  // const services: ServicesProps[] = [
+  //   {
+  //     title: "Mental Health",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "ED consultation",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Psychology",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Anxienty",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Pain",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Depression",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Addiction",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Addiction",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  //   {
+  //     title: "Addiction",
+  //     imageUrl: "/doctor.jpg",
+  //     slug: "telehealth",
+  //   },
+  // ];
   const tabsData = [
     {
       title: "Top Booked",
-      icon: () => <Stethoscope className="mr-2" />,
+      icon: Stethoscope,
       content: <ServiceLists data={services} />,
     },
-    {
-      title: "Doctors",
-      icon: () => <Microscope className="mr-2" />,
-      content: <LinkCards className="bg-green-900" />,
-    },
+    // {
+    //   title: "Doctors",
+    //   icon: Microscope,
+    //   content: <LinkCards className="bg-green-900" />,
+    // },
     {
       title: "Specialists",
-      icon: () => <Activity className="mr-2" />,
-      content: <LinkCards className="bg-blue-700" />,
+      icon: Activity,
+      content: <LinkCards specialties={specialties} />,
     },
     {
       title: "Symptoms",
-      icon: () => <Syringe className="mr-2" />,
-      content: <LinkCards className="bg-red-900" />,
+      icon: Syringe,
+      content: <SymptomsLinkCard symptoms={symptoms} />,
     },
   ];
 

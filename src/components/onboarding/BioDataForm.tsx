@@ -16,6 +16,7 @@ import {
   updateDoctorProfile,
 } from "../../../actions/onboarding";
 import { useOnboardingContext } from "../../../context/context";
+import { Specialty } from "@prisma/client";
 
 export type StepFormProps = {
   title: string;
@@ -24,6 +25,7 @@ export type StepFormProps = {
   nextPage?: string;
   formId?: string;
   userId?: string;
+  specialties?: Specialty[];
 };
 
 const genderOptions = [

@@ -72,6 +72,7 @@ const initialPracticeData = {
   servicesOffered: [],
   insuranceAccepted: "",
   languageSpoken: [],
+  hourlWage: 100,
   page: "",
 };
 

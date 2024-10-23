@@ -14,3 +14,32 @@ export const timesArray = [
   "7:00 PM",
   "8:00 PM",
 ];
+
+export const statusOptions = [
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  {
+    label: "Approve",
+    value: "approved",
+  },
+  {
+    label: "Reject",
+    value: "rejected",
+  },
+];
+export const providersOptions = [
+  {
+    title: "Zoom",
+    value: "zoom",
+  },
+  {
+    title: "Google Meet",
+    value: "google",
+  },
+  {
+    title: "Microsoft Teams",
+    value: "microsoft",
+  },
+];

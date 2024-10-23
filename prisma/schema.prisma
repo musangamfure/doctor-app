@@ -177,17 +177,24 @@ model Appointment {
   appointmentFormattedDate String?
   doctorId                 String?
   doctorProfileId          String?
+  patientId                String?
   charge                   Int?
   appointmentTime          String?
-  firtName                 String?
+  firstName                String?
   lastName                 String?
   gender                   String?
+  location                 String?
   email                    String?
   phone                    String?
   dob                      DateTime?
   appointmentReason        String?
   medicalDocuments         String[]
   occupation               String?
-  createdAt                DateTime  @default(now())
-  updatedAt                DateTime  @updatedAt
+
+  status          String @default("pending")
+  meetingLink     String @default("#")
+  meetingProvider String @default("Zoom")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

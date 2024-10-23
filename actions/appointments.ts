@@ -3,8 +3,10 @@
 import { prismaClient } from "@/lib/db";
 import { appointmentsProps } from "../types/types";
 import { revalidatePath } from "next/cache";
+import App from "next/app";
+import { AppointmentUpdateProps } from "@/components/dashboard/doctor/UpdateAppointmentForm";
 
-export async function createService(data: appointmentsProps) {
+export async function createAppointment(data: appointmentsProps) {
   try {
     const newAppointment = await prismaClient.appointment.create({
       data,
@@ -26,7 +28,47 @@ export async function createService(data: appointmentsProps) {
   }
 }
 
-export async function updateService(id: string, data: appointmentsProps) {
+export async function updateAppointment(id: string, data: appointmentsProps) {
+  try {
+    const existingAppointment = await prismaClient.appointment.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!existingAppointment) {
+      return {
+        data: null,
+        status: 409,
+        error: "Service does not exists",
+      };
+    }
+    const updatedAppointment = await prismaClient.appointment.update({
+      where: {
+        id,
+      },
+      data,
+    });
+    revalidatePath("/dashboard/doctor/appointments");
+    console.log(updatedAppointment);
+    return {
+      data: updatedAppointment,
+      error: null,
+      status: 201,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      data: null,
+      status: 500,
+      error: "Something went wrong",
+    };
+  }
+}
+export async function updateAppointmentbyId(
+  id: string,
+  data: AppointmentUpdateProps
+) {
   try {
     const existingAppointment = await prismaClient.appointment.findUnique({
       where: {
@@ -88,7 +130,7 @@ export async function getAppointments() {
   }
 }
 
-export async function getServicebyId(id: string) {
+export async function getAppointmentbyId(id: string) {
   try {
     if (id) {
       const appointment = await prismaClient.appointment.findUnique({

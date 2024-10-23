@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { getDayFromDate } from "../../utils/getDayFromDate";
 import { getLongDate } from "../../utils/getLongDate";
 import { RainbowButton } from "./ui/rainbow-button";
-import { MoveRight } from "lucide-react";
+import { Loader2, MoveRight } from "lucide-react";
 import Link from "next/link";
 import App from "next/app";
 import { useForm } from "react-hook-form";
@@ -15,8 +15,11 @@ import TextFormInput from "./auth/forminputs/TextFormInput";
 import DatePickerInput from "./auth/forminputs/DatPickerInput";
 import { RadioGroupInput } from "./auth/forminputs/RadioGroupInput";
 import TextAreaInput from "./auth/forminputs/TextAreaInput";
-import MultipleFileInput from "./auth/forminputs/MultipleFileInput";
+import MultipleFileInput, { File } from "./auth/forminputs/MultipleFileInput";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { createAppointment } from "../../actions/appointments";
+import { se } from "date-fns/locale";
 
 export default function Availability({ doctor }: { doctor: Doctor }) {
   const { data: session } = useSession();
@@ -29,7 +32,7 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
   const [selectedTime, setSelectedTime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dob, setDob] = useState<Date>();
-  const [medicalDocs, setMedicalDocs] = useState([]);
+  const [medicalDocs, setMedicalDocs] = useState<File[]>([]);
 
   const timeStamps = doctor.doctorProfile?.availability?.[day];
   const router = useRouter();
@@ -50,9 +53,14 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<appointmentsProps>();
+  } = useForm<appointmentsProps>({
+    defaultValues: {
+      email: patient?.email ?? "",
+    },
+  });
 
   async function onSubmit(data: appointmentsProps) {
+    setIsLoading(true);
     if (dob) {
       data.dob = dob;
     }
@@ -60,12 +68,39 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
     data.appointmentDate = bookDate ?? new Date();
     data.appointmentTime = selectedTime ?? "";
     data.doctorId = doctor.id;
+    data.patientId = patient?.id;
     data.charge = doctor.doctorProfile?.hourlWage ?? 0;
     data.doctorProfileId = doctor.doctorProfile?.id ?? "";
-    data.medicalDocuments = medicalDocs;
+    data.medicalDocuments = medicalDocs.map((doc) => doc.url);
     console.log(data);
 
-    // router.push("/dashboard/services");
+    try {
+      const res = await createAppointment(data);
+
+      const appointment = res.data;
+      console.log(appointment);
+      if (res.status === 201) {
+        setIsLoading(false);
+        toast.success("Appointment created successfully");
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  }
+
+  function initiateAppointment() {
+    if (patient?.id) {
+      if (!selectedTime) {
+        toast.error("Please select a time slot");
+        return;
+      }
+      setSteps((curr) => curr + 1);
+    } else {
+      router.push("/login");
+    }
   }
 
   return (
@@ -112,7 +147,7 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
 
                 <div className="py-4 ">
                   <RainbowButton
-                    onClick={() => setSteps((curr) => curr + 1)}
+                    onClick={initiateAppointment}
                     className="hover:icon-move"
                   >
                     Book Now (${doctor.doctorProfile?.hourlWage})
@@ -139,7 +174,7 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
               <div className="py-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 space-y-4">
                   <TextFormInput
-                    name="FirstName"
+                    name="firstName"
                     label="First Name"
                     register={register}
                     errors={errors}
@@ -248,7 +283,14 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
                   >
                     Previous
                   </Button>
-                  <Button type="submit">Submit Appointment</Button>
+                  {isLoading ? (
+                    <Button type="submit" disabled>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Submiting...
+                    </Button>
+                  ) : (
+                    <Button type="submit">Submit Appointment</Button>
+                  )}
                 </div>
               </div>
             )}

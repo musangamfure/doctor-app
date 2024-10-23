@@ -156,9 +156,10 @@ export interface appointmentsProps {
   appointmentFormattedDate: string;
   doctorId: string;
   doctorProfileId: string;
+  patientId: string | undefined;
   charge: number;
   appointmentTime: string;
-  firtName: string;
+  firstName: string;
   lastName: string;
   gender: string;
   email: string;

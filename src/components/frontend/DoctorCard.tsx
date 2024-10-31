@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Doctor } from "../../../types/types";
 import createSlug from "../../../utils/slugFunction";
 import { cn } from "@/lib/utils";
+import { formatTodayDate } from "../../../utils/formattedDate";
 
 interface DoctorCardProps {
   doctor: Doctor;
@@ -121,7 +122,7 @@ const DoctorCard = ({
 
           <div className=" flex items-center justify-between border-t mt-4 pt-2">
             <div className="text-gray-500 dark:text-white/65 text-sm mb-2">
-              Tue, Sep 3
+              {formatTodayDate()}
             </div>
             <div className="flex items-center">
               <span className="line-through text-gray-400 dark:text-white/65 mr-2">

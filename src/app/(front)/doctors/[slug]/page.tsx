@@ -1,17 +1,25 @@
-import BookingCard from "@/components/frontend/BookingCard";
 import DoctorDetails from "@/components/frontend/DoctorDetails";
 import Container from "@/components/frontend/Container";
 import Image from "next/image";
 import React from "react";
 import { getDoctorBySlug } from "../../../../../actions/users";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { getAppointmentByPatientId } from "../../../../../actions/appointments";
+import App from "next/app";
+import { Appointment } from "@prisma/client";
 
 export default async function DoctorsPage({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
+  const session = await getServerSession(authOptions);
   const doctor = await getDoctorBySlug(slug);
-  console.log(doctor);
+  const user = session?.user;
+
+  const appointment = await getAppointmentByPatientId(user?.id);
+
   return (
     <>
       {doctor && doctor.id ? (
@@ -46,22 +54,12 @@ export default async function DoctorsPage({
                     />
                   </div>
                 </div>
-                <DoctorDetails doctor={doctor} />
-              </div>
-            </div>
-            {/* <div className="fixed bottom-0 left-0 right-0 w-full bg-white shadow-lg dark:bg-neutral-950 ">
-              <div className="max-w-4xl mx-auto ">
-                <BookingCard
+                <DoctorDetails
                   doctor={doctor}
-                  price={145}
-                  discountedPrice={132}
-                  appointmentTime="Wed, Sep 4 - 10:30 AM"
-                  timeZone="EDT"
-                  buttonText="Book"
-                  note="You won't be charged yet"
+                  appointment={appointment as Appointment | null}
                 />
               </div>
-            </div> */}
+            </div>
           </Container>
         </div>
       ) : (

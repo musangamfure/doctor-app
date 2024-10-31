@@ -171,15 +171,21 @@ model Availability {
   updatedAt       DateTime      @updatedAt
 }
 
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Appointment {
   id                       String    @id @default(auto()) @map("_id") @db.ObjectId
   appointmentDate          DateTime?
   appointmentFormattedDate String?
-  doctorId                 String?
-  doctorProfileId          String?
-  patientId                String?
-  charge                   Int?
-  appointmentTime          String?
+  doctorId                 String
+  doctorProfileId          String
+  patientId                String
+  charge                   Int
+  appointmentTime          String
   firstName                String?
   lastName                 String?
   gender                   String?

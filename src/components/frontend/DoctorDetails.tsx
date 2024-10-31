@@ -4,8 +4,15 @@ import React, { useState } from "react";
 import ServiceDetailsComponent from "./ServiceDetailsComponent";
 import Availability from "../availability";
 import { Doctor } from "../../../types/types";
+import { Appointment } from "@prisma/client";
 
-export default function DoctorDetails({ doctor }: { doctor: Doctor }) {
+export default function DoctorDetails({
+  doctor,
+  appointment,
+}: {
+  doctor: Doctor;
+  appointment: Appointment | null;
+}) {
   const [active, setActive] = useState("availability");
 
   const included = ["Referral to specialist", "Prescription, if recommended"];
@@ -49,7 +56,7 @@ export default function DoctorDetails({ doctor }: { doctor: Doctor }) {
       <div className="pt-8">
         {active === "availability" ? (
           <div className="">
-            <Availability doctor={doctor} />
+            <Availability doctor={doctor} appointment={appointment} />
           </div>
         ) : (
           <div className="">

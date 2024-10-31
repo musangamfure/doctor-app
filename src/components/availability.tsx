@@ -7,8 +7,6 @@ import { getDayFromDate } from "../../utils/getDayFromDate";
 import { getLongDate } from "../../utils/getLongDate";
 import { RainbowButton } from "./ui/rainbow-button";
 import { Loader2, MoveRight } from "lucide-react";
-import Link from "next/link";
-import App from "next/app";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import TextFormInput from "./auth/forminputs/TextFormInput";
@@ -19,9 +17,16 @@ import MultipleFileInput, { File } from "./auth/forminputs/MultipleFileInput";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { createAppointment } from "../../actions/appointments";
-import { se } from "date-fns/locale";
+import App from "next/app";
+import { Appointment } from "@prisma/client";
 
-export default function Availability({ doctor }: { doctor: Doctor }) {
+export default function Availability({
+  doctor,
+  appointment,
+}: {
+  doctor: Doctor;
+  appointment: Appointment | null;
+}) {
   const { data: session } = useSession();
   const patient = session?.user;
 
@@ -55,7 +60,13 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
     formState: { errors },
   } = useForm<appointmentsProps>({
     defaultValues: {
-      email: patient?.email ?? "",
+      email: appointment?.email ?? "",
+      firstName: appointment?.firstName ?? "",
+      lastName: appointment?.lastName ?? "",
+      gender: appointment?.gender ?? "",
+      phone: appointment?.phone ?? "",
+      occupation: appointment?.occupation ?? "",
+      location: appointment?.location ?? "",
     },
   });
 
@@ -68,7 +79,7 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
     data.appointmentDate = bookDate ?? new Date();
     data.appointmentTime = selectedTime ?? "";
     data.doctorId = doctor.id;
-    data.patientId = patient?.id;
+    data.patientId = patient!.id;
     data.charge = doctor.doctorProfile?.hourlWage ?? 0;
     data.doctorProfileId = doctor.doctorProfile?.id ?? "";
     data.medicalDocuments = medicalDocs.map((doc) => doc.url);
@@ -82,7 +93,7 @@ export default function Availability({ doctor }: { doctor: Doctor }) {
       if (res.status === 201) {
         setIsLoading(false);
         toast.success("Appointment created successfully");
-        router.push("/dashboard");
+        router.push("/dashboard/user/appointments");
       }
     } catch (error) {
       setIsLoading(false);

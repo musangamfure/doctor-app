@@ -1,10 +1,7 @@
 import DoctorList from "@/components/frontend/DoctorList";
-import Brands from "@/components/frontend/Brands";
 import Container from "@/components/frontend/Container";
-import Hero from "@/components/frontend/Hero";
-import TabledSection from "@/components/frontend/TabledSection";
-import { getDoctorsWithProfiles } from "../../../actions/users";
-import { Doctor } from "../../../types/types";
+import { getDoctorsWithProfiles } from "../../../../../../../actions/users";
+import { Doctor } from "../../../../../../../types/types";
 
 export default async function Home() {
   const doctorsResult = (await getDoctorsWithProfiles()) || [];
@@ -22,17 +19,6 @@ export default async function Home() {
 
   return (
     <section className="">
-      <Container className="bg-blue-950 dark:bg-slate-950">
-        <Hero />
-      </Container>
-
-      <Container className="bg-blue-100 dark:bg-neutral-900">
-        <Brands />
-      </Container>
-
-      <Container className="dark:bg-slate-950">
-        <TabledSection />
-      </Container>
       <Container className="bg-blue-100 p-8 lg:p-24 dark:bg-neutral-900">
         <DoctorList
           title="Telehealth Visit"

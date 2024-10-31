@@ -13,14 +13,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { Appointment } from "@prisma/client";
+import { Appointment, UserRole } from "@prisma/client";
 import { timeAgo } from "../../../../utils/timeAgo";
 import { usePathname } from "next/navigation";
 
 export default function ListPanel({
   appointments,
+  role,
 }: {
   appointments: Appointment[];
+  role: UserRole;
 }) {
   const isVisited = (appointmentId: string) => {
     if (typeof window !== "undefined") {
@@ -38,7 +40,9 @@ export default function ListPanel({
       {appointments.map((appointment) => (
         <Link
           key={appointment.id}
-          href={`/dashboard/doctor/appointments/view/${appointment.id}`}
+          href={`/dashboard/${
+            role === "USER" ? "user" : "doctor"
+          }/appointments/view/${appointment.id}`}
           onClick={() => {
             const visitedAppointments = JSON.parse(
               localStorage.getItem("visitedAppointments") || "[]"
@@ -53,7 +57,7 @@ export default function ListPanel({
           }}
           className={cn(
             "border w-full mb-2 shadow-sm text-sm inline-block py-2 px-4 rounded-md",
-            pathname === `/dashboard/doctor/appointments/view/${appointment.id}`
+            pathname === `/dashboard/user/appointments/view/${appointment.id}`
               ? "border-2 border-blue-300 dark:bg-gray-600 dark:border-blue-300"
               : isVisited(appointment.id)
               ? "border-gray-200 bg-white hover:bg-gray-100 dark:hover:bg-gray-800 dark:border-gray-700"
@@ -64,11 +68,12 @@ export default function ListPanel({
             <h3>
               {appointment.firstName} {appointment.lastName}
             </h3>
-            <span className="font-semibold">
-              {appointment.appointmentTime}{" "}
-            </span>
+            <div className="flex items-center ">
+              <History className="h-4 w-4 mr-1 " />
+              <span className="text-sm">{timeAgo(appointment.createdAt)}</span>
+            </div>
           </div>
-          <div className="flex items-center border-b pb-2 gap-4">
+          <div className="flex items-center justify-between border-b pb-2 gap-4">
             <div className="flex items-center font-semibold">
               <CalendarCheck className="h-4 w-4 mr-1 text-gray-500" />
               <span className="text-sm">
@@ -76,10 +81,9 @@ export default function ListPanel({
                 {appointment.appointmentFormattedDate}
               </span>
             </div>
-            <div className="flex items-center ">
-              <History className="h-4 w-4 mr-1 " />
-              <span className="text-sm">{timeAgo(appointment.createdAt)}</span>
-            </div>
+            <span className="font-semibold">
+              {appointment.appointmentTime}{" "}
+            </span>
           </div>
           <div className="flex items-center py-2">
             {appointment.status === "approved" ? (

@@ -3,5 +3,5 @@ export function formatTodayDate() {
   const formattedDate = today.toString().split(" ").slice(0, 3).join(" ");
   const GMT = today.toString().split(" ").slice(5, 6).join(" ");
 
-  return `${formattedDate} - ${GMT}`;
+  return `${formattedDate}`;
 }

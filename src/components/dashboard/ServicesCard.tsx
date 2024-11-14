@@ -4,7 +4,10 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { Pencil, Trash } from "lucide-react";
-import { deleteService } from "../../../actions/services";
+import {
+  deleteService,
+  ServicesWithDoctorCount,
+} from "../../../actions/services";
 import toast from "react-hot-toast";
 import { Service } from "@prisma/client";
 
@@ -20,7 +23,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function ServicesCard({ service }: { service: Service }) {
+export default function ServicesCard({
+  service,
+}: {
+  service: ServicesWithDoctorCount;
+}) {
   async function handleDelete(id: string) {
     await deleteService(id);
     toast.success("Specialty deleted successfully");

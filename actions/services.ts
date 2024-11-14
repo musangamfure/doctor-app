@@ -4,6 +4,16 @@ import { prismaClient } from "@/lib/db";
 import { ServicesProps } from "../types/types";
 import { revalidatePath } from "next/cache";
 
+export interface ServicesWithDoctorCount {
+  _count: {
+    doctorProfiles: number;
+  };
+  id: string;
+  title: string;
+  slug: string;
+  imageUrl: string;
+}
+
 export async function createService(data: ServicesProps) {
   try {
     const existingService = await prismaClient.service.findUnique({
@@ -136,6 +146,18 @@ export async function getServices() {
     const services = await prismaClient.service.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        imageUrl: true,
+        _count: {
+          select: {
+            doctorProfiles: true,
+          },
+        },
       },
     });
     revalidatePath("/dashboard/services");

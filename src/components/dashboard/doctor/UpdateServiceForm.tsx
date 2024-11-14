@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button";
 import { DoctorProfile, Service, Specialty, Symptom } from "@prisma/client";
 
 import toast from "react-hot-toast";
-import { updateDoctorProfileServiceSettings } from "../../../../actions/services";
+import {
+  ServicesWithDoctorCount,
+  updateDoctorProfileServiceSettings,
+} from "../../../../actions/services";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 export type servicesProps = {
@@ -22,7 +25,7 @@ export default function UpdateServiceForm({
   symptoms,
   profile,
 }: {
-  services: Service[] | null;
+  services: ServicesWithDoctorCount[] | null;
   specialties: Specialty[] | null;
   symptoms: Symptom[] | null;
   profile: DoctorProfile | undefined | null;

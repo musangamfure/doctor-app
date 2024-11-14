@@ -11,13 +11,11 @@ interface DoctorCardProps {
   reviewsCount: number;
   specialization: string;
   availability: string;
-
   review: string;
   prices: {
     original: number;
     discounted: number;
   };
-  appointmentTimes: string[];
   isInPersonal?: boolean;
 }
 
@@ -27,11 +25,10 @@ const DoctorCard = ({
   reviewsCount,
   specialization,
   availability,
-  review,
   prices,
-  appointmentTimes,
   isInPersonal = false,
 }: DoctorCardProps) => {
+  // Get today's day name
   const getDayName = () => {
     const days = [
       "sunday",
@@ -43,36 +40,29 @@ const DoctorCard = ({
       "saturday",
     ] as const;
     const today = new Date();
-    const dayName = days[today.getDay()];
-    return dayName;
+    return days[today.getDay()];
   };
   const today = getDayName();
 
+  // Get availability times for today
   const timeStamps = doctor.doctorProfile?.availability?.[today] ?? [];
-
   const slug = createSlug(doctor.slug);
 
   return (
     <>
-      {timeStamps.length > 0 && (
-        <div
-          className={cn(
-            "max-w-md rounded-md border dark:bg-neutral-950 border-gray-200 hover:border-gray-400 duration-300 shadow-sm p-4 bg-white",
-            isInPersonal ? "h-[540px]" : "h-[494px]"
-          )}
-        >
-          <Link href={`/doctors/${slug}`}>
-            <div className="">
-              <div>
-                <h2 className="text-xl font-bold">
-                  <span className="mr-[0.3px]">Dr.</span> {doctor.name}
-                </h2>
-                {isInPersonal && (
-                  <p className="text-gray-600 dark:text-white/65">
-                    2138 Maplewood Drive San Francisco, CA 94110 USA
-                  </p>
-                )}
-              </div>
+      {timeStamps && timeStamps.length > 0 && (
+        <div className="max-w-md rounded-md border dark:bg-neutral-950 border-gray-200 hover:border-gray-400 duration-300 shadow-sm p-4 bg-white">
+          <Link href={`/doctors/${slug}?id=${doctor.id}`}>
+            <div>
+              <h2 className="text-xl font-bold">
+                <span className="mr-[0.3px]">Dr.</span>
+                {`${doctor.doctorProfile?.firstName} ${doctor.doctorProfile?.lastName}`}
+              </h2>
+              {isInPersonal && (
+                <p className="text-gray-600 dark:text-white/65">
+                  2138 Maplewood Drive San Francisco, CA 94110 USA
+                </p>
+              )}
             </div>
 
             <div className="flex items-center mt-4">
@@ -80,17 +70,17 @@ const DoctorCard = ({
                 <img
                   src={doctor.doctorProfile?.profilePicture ?? "/doctor.jpg"}
                   alt={doctor.name}
-                  className="w-24 h-24 rounded-full  mr-8 object-cover  "
+                  className="w-24 h-24 rounded-full mr-8 object-cover"
                 />
                 {!isInPersonal && (
-                  <div className="bg-blue-200 text-blue-700 w-10 h-10  absolute bottom-0 right-4 flex items-center justify-center rounded-full">
+                  <div className="bg-blue-200 text-blue-700 w-10 h-10 absolute bottom-0 right-4 flex items-center justify-center rounded-full">
                     <Video className="w-6 h-6" />
                   </div>
                 )}
               </div>
 
               <div className="my-4">
-                <div className="">
+                <div>
                   <span className="text-yellow-500">★</span>
                   <span className="ml-1 font-bold dark:text-white/65">
                     {rating.toFixed(1)}
@@ -105,7 +95,6 @@ const DoctorCard = ({
                     <Stethoscope className="w-4 h-4" />
                   </span>
                   <span className="text-sm dark:text-white/65">
-                    {" "}
                     {specialization}
                   </span>
                 </div>
@@ -116,11 +105,10 @@ const DoctorCard = ({
                 </div>
               </div>
             </div>
-
-            <p className="text-gray-600 dark:text-white/65 mt-2">{review}</p>
           </Link>
 
-          <div className=" flex items-center justify-between border-t mt-4 pt-2">
+          {/* Pricing and Date */}
+          <div className="flex items-center justify-between border-t mt-4 pt-2">
             <div className="text-gray-500 dark:text-white/65 text-sm mb-2">
               {formatTodayDate()}
             </div>
@@ -129,7 +117,7 @@ const DoctorCard = ({
                 ${prices.original}
               </span>
               <span className="text-lg font-bold text-purple-600">
-                ${doctor.doctorProfile?.hourlWage}
+                ${doctor.doctorProfile?.hourlWage ?? prices.discounted}
               </span>
               <span className="text-sm text-gray-500 dark:text-white/65 ml-1">
                 with Sesame Plus
@@ -137,22 +125,26 @@ const DoctorCard = ({
             </div>
           </div>
 
+          {/* Availability Times */}
           <div className="mt-3 grid grid-cols-3 gap-2">
-            {timeStamps.map((time: string, index: number) => (
+            {timeStamps.length > 0 &&
+              timeStamps.slice(0, 5).map((time: string, index: number) => (
+                <Link
+                  href={`/doctors/${slug}?id=${doctor.id}`}
+                  key={index}
+                  className="bg-purple-600 flex flex-nowrap items-center justify-center text-white rounded-full px-3 py-1 hover:bg-purple-700 flex-shrink-0"
+                >
+                  {time}
+                </Link>
+              ))}
+            {timeStamps.length > 5 && (
               <Link
-                href="#"
-                key={index}
-                className="bg-purple-600 text-white rounded-full px-3 py-1 hover:bg-purple-700 flex-shrink-0"
+                href={`/doctors/${slug}?id=${doctor.id}`}
+                className="bg-purple-200 flex flex-nowrap items-center justify-center text-purple-600 flex-shrink-0 rounded-full px-2 py-1 hover:bg-purple-300"
               >
-                {time}
+                More times
               </Link>
-            ))}
-            {/* <Link
-              href={`/doctors/${slug}`}
-              className="bg-purple-200 text-purple-600 flex-shrink-0 rounded-full px-2 py-1 hover:bg-purple-300"
-            >
-              More times
-            </Link> */}
+            )}
           </div>
         </div>
       )}

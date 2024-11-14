@@ -2,20 +2,25 @@ import DoctorDetails from "@/components/frontend/DoctorDetails";
 import Container from "@/components/frontend/Container";
 import Image from "next/image";
 import React from "react";
-import { getDoctorBySlug } from "../../../../../actions/users";
+import { getDoctorById, getDoctorBySlug } from "../../../../../actions/users";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getAppointmentByPatientId } from "../../../../../actions/appointments";
-import App from "next/app";
+
 import { Appointment } from "@prisma/client";
 
 export default async function DoctorsPage({
-  params: { slug },
+  params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const session = await getServerSession(authOptions);
-  const doctor = await getDoctorBySlug(slug);
+  const { id } = searchParams;
+  // const doctor = await getDoctorBySlug(slug);
+  const doctor = await getDoctorById(id as string);
+
   const user = session?.user;
 
   const appointment = await getAppointmentByPatientId(user?.id);
@@ -31,7 +36,11 @@ export default async function DoctorsPage({
                   <div className="">
                     <div className="mb-4">
                       <h1 className="text-xl font-bold uppercase">
-                        <span className="mr-1">Dr.</span> {doctor.name}
+                        <span className="mr-1">Dr.</span>
+
+                        {`${doctor.doctorProfile?.firstName} ${" "} ${
+                          doctor.doctorProfile?.lastName
+                        }`}
                       </h1>
                       <p className="text-gray-600 text-sx">Adult Health</p>
                     </div>

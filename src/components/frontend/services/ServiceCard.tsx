@@ -1,12 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { ServicesProps } from "../../../../types/types";
+import { ServicesWithDoctorCount } from "../../../../actions/services";
 
-export default function ServiceCard({ service }: { service: ServicesProps }) {
+export default function ServiceCard({
+  service,
+}: {
+  service: ServicesWithDoctorCount;
+}) {
   return (
     <Link
-      href={`/services/${service.slug}`}
+      href={`/service/${service.slug}`}
       className="rounded-md bg-slate-100  hover:bg-slate-200 dark:bg-neutral-800 duration-300 flex items-center gap-3 overflow-hidden px-2 "
     >
       <Image
@@ -18,7 +22,9 @@ export default function ServiceCard({ service }: { service: ServicesProps }) {
       />
       <div className="flex flex-col  py-4">
         <h2>{service.title}</h2>
-        <p className="text-[0.7rem]">936 Doctors available</p>
+        <p className="text-[0.7rem]">
+          ({service._count.doctorProfiles}) Doctors available
+        </p>
       </div>
     </Link>
   );

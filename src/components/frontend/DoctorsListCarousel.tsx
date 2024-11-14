@@ -40,13 +40,6 @@ export default function DoctorsListCarousel({
       doctor={doctor}
       review="Great customer service! Love the doctors and the entire staff."
       prices={{ original: 131, discounted: 121 }}
-      appointmentTimes={[
-        "6:30 pm",
-        "10:00 am",
-        "10:30 am",
-        "11:00 am",
-        "11:30 am",
-      ]}
       isInPersonal={isInPersonal}
     />
   );

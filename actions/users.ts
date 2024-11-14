@@ -255,3 +255,64 @@ export async function getDoctorBySlug(slug: string) {
     }
   }
 }
+export async function getDoctorById(id: string) {
+  if (id) {
+    try {
+      const doctor = await prismaClient.user.findFirst({
+        where: {
+          role: "DOCTOR",
+          id,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          slug: true,
+          phone: true,
+          doctorProfile: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              gender: true,
+              operationMode: true,
+              bio: true,
+              hourlWage: true,
+              profilePicture: true,
+              primarySpecialization: true,
+              yearsOfExperience: true,
+              country: true,
+              state: true,
+              city: true,
+              otherSpecialization: true,
+              hospitalName: true,
+              hospitalWebsite: true,
+              servicesOffered: true,
+              insuranceAccepted: true,
+              research: true,
+              accomplishments: true,
+              hospitalHoursOfOperation: true,
+
+              availability: {
+                select: {
+                  monday: true,
+                  tuesday: true,
+                  wednesday: true,
+                  thursday: true,
+                  friday: true,
+                  saturday: true,
+                  sunday: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return doctor;
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      throw error;
+    }
+  }
+}

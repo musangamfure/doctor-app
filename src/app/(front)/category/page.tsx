@@ -26,7 +26,7 @@ export default async function ServicePage({
 
   console.log("allDoctors:", doctorsWithTimestamps);
 
-  const services = (await getServices()).data || [];
+  const services = (await getServices()) || [];
 
   return (
     <div className="container p-8">

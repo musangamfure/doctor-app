@@ -2,12 +2,10 @@ import Link from "next/link";
 import React from "react";
 
 import DoctorCard from "@/components/frontend/DoctorCard";
-import {
-  getDoctorBySpecialitySlug,
-  SpecialityDataProps,
-} from "../../../../../actions/doctors";
-import { Doctor } from "../../../../../types/types";
-import { getDayName } from "../../../../../utils/getDayName";
+import { getDayName } from "../../../../utils/getDayName";
+import { Doctor } from "../../../../types/types";
+import { getDoctorsWithProfiles } from "../../../../actions/users";
+import { getServices } from "../../../../actions/services";
 
 export default async function ServicePage({
   params,
@@ -16,37 +14,39 @@ export default async function ServicePage({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { slug } = params;
-  const title = slug.replace("-", " ");
-  const data = (await getDoctorBySpecialitySlug(slug)) as SpecialityDataProps;
-  const doctors = data.doctors;
-  const specialities = data.specialities;
+  const { mode } = searchParams;
 
-  const doctorsWithTimestamps = doctors?.filter((doctor: Doctor) => {
+  const allDoctors = (await getDoctorsWithProfiles()) as Doctor[];
+
+  const doctorsWithTimestamps = allDoctors.filter((doc) => {
     const today = getDayName();
-    const timeStamps = doctor.doctorProfile?.availability?.[today] ?? [];
-    return timeStamps.length > 0;
+    const timeStamps = doc.doctorProfile?.availability?.[today] ?? [];
+    return doc.doctorProfile?.operationMode === mode && timeStamps.length > 0;
   });
+
+  console.log("allDoctors:", doctorsWithTimestamps);
+
+  const services = (await getServices()).data || [];
 
   return (
     <div className="container p-8">
       <h1 className="capitalize scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl py-4">
-        {title} ({doctorsWithTimestamps?.length.toString().padStart(2, "0")})
+        {mode} ({doctorsWithTimestamps?.length.toString().padStart(2, "0")})
       </h1>
       <div className="max-w-6xl mx-auto grid grid-cols-12 gap-6 lg:gap-10">
         <div className="col-span-3  border border-gray-200/50 rounded-ms p-6">
-          <h2 className="capitalize font-semibold  ">Other Specialties</h2>
+          <h2 className="capitalize font-semibold  ">Other Services</h2>
           <div className="py-3 flex flex-col gap-2 text-sm">
-            {specialities &&
-              specialities.length > 0 &&
-              specialities.map((speciality, i) => {
+            {services &&
+              services.length > 0 &&
+              services.map((service, i) => {
                 return (
                   <Link
                     key={i}
-                    href={`/speciality/${speciality.slug}`}
+                    href={`/service/${service.slug}`}
                     className="hover:text-blue-600"
                   >
-                    {speciality.title}
+                    {service.title}
                   </Link>
                 );
               })}
@@ -55,7 +55,7 @@ export default async function ServicePage({
         <div className="col-span-9">
           {doctorsWithTimestamps && doctorsWithTimestamps.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
-              {doctorsWithTimestamps.map((doctor: Doctor) => {
+              {doctorsWithTimestamps.map((doctor) => {
                 return (
                   <DoctorCard
                     key={doctor.id}
@@ -72,9 +72,7 @@ export default async function ServicePage({
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full">
-              <p className="text-gray-500">
-                No doctors found in this specialty
-              </p>
+              <p className="text-gray-500">No doctors found in this category</p>
             </div>
           )}
         </div>

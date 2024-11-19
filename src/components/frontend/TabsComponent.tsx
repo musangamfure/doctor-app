@@ -3,14 +3,15 @@
 import { Tabs } from "flowbite-react";
 import { Activity, Stethoscope, Syringe } from "lucide-react";
 import ServiceLists from "./services/ServiceLists";
-import LinkCards from "./doctors/LinkCards";
-import { Service, Specialty, Symptom } from "@prisma/client";
+import SpecialtyLinkCards from "./doctors/LinkCards";
+import { Symptom } from "@prisma/client";
 import SymptomsLinkCard from "./doctors/SymptomsLinkCard";
 import { ServicesWithDoctorCount } from "../../../actions/services";
+import { specialityProps } from "../../../actions/doctors";
 
 type TabsComponentProps = {
   services: ServicesWithDoctorCount[];
-  specialties: Specialty[];
+  specialties: specialityProps[];
   symptoms: Symptom[];
 };
 
@@ -29,7 +30,7 @@ export default function TabsComponent({
     {
       title: "Specialists",
       icon: Activity,
-      content: <LinkCards specialties={specialties} />,
+      content: <SpecialtyLinkCards specialties={specialties} />,
     },
     {
       title: "Symptoms",

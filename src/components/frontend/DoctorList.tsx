@@ -33,7 +33,7 @@ export default function DoctorList({
         )}
         <Link
           className="py-3 px-6 border border-blue-600 dark:border-white/85 bg-white/50 dark:bg-slate-950 rounded-r-sm"
-          href="#"
+          href={`/category?mode=${title}`}
         >
           See all
         </Link>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import SolutionNav from "./SolutionNav";
 import OpenSourceNav from "./OpenSourceNav";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 
 type Props = {};
 
@@ -51,7 +52,10 @@ const Navbar = (props: Props) => {
                 className={`w-[23px] h-[2px] transition ease-in duration-150 bg-white  ${
                   showNav ? "-rotate-45 mb-0" : "rotate-0"
                 }`}
-              ></div>
+              >
+                {" "}
+                <Menu className="scroll-m-20 text-2xl text-gray-600 dark:text-white/65 font-extrabold tracking-tight lg:text-3xl" />
+              </div>
             </button>
           </div>
           <div
@@ -62,7 +66,7 @@ const Navbar = (props: Props) => {
             }`}
           >
             <div className="flex max-lg:flex-col lg:items-center lg:justify-between max-lg:justify-between max-sm:w-10/12 max-sm:mx-auto sm:ml-auto max-lg:w-[320px] lg:w-full max-lg:max-h-[500px]  overflow-y-auto lg:mb-0 max-lg:bg-white max-lg:rounded-lg">
-              <nav className="mt-0 px-3 lg:px-6 text-[15.5px] mb-0 max-lg:py-10 max-lg:px-5">
+              {/* <nav className="mt-0 px-3 lg:px-6 text-[15.5px] mb-0 max-lg:py-10 max-lg:px-5">
                 <ul className="flex lg:items-center lg:space-x-2 max-lg:flex-col max-lg:text-neutral-700 max-lg:text-xl max-lg:font-medium max-lg:space-y-6 max-lg:h-auto  overflow-y-auto">
                   <OpenSourceNav />
                   <ProductNav />
@@ -74,7 +78,7 @@ const Navbar = (props: Props) => {
                     </a>
                   </li>
                 </ul>
-              </nav>
+              </nav> */}
               <div className="lg:flex items-center max-lg:flex-col lg:px-0 px-3 mb-3 lg:mb-0 text-left lg:space-x-4">
                 <div className="max-lg:flex justify-center max-lg:border-[1px] max-lg:mr-4 rounded-md max-lg:bg-neutral-800">
                   <Link

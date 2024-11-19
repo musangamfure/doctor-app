@@ -3,6 +3,7 @@ import TransitionalText from "./TransitionalText";
 import { Pill } from "lucide-react";
 import { CommandMenu } from "../command-menu";
 import Image from "next/image";
+import SearchBar from "../SearchBar";
 
 const Hero = () => {
   return (
@@ -26,8 +27,8 @@ const Hero = () => {
                 </p>
 
                 {/* <SearchBar /> */}
-                <div className="w-full flex-1 md:w-auto md:flex-none">
-                  <CommandMenu />
+                <div className="w-full flex-1 md:w-[80%] md:flex-none">
+                  <SearchBar />
                 </div>
                 <ul className="flex flex-wrap items-center mt-8">
                   <li>

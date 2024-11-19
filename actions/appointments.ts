@@ -32,9 +32,9 @@ export async function createAppointment(data: appointmentsProps) {
       subject: "New Appointment Approval needed",
       react: NewAppointmentTemplate({ firstName, link, message }),
     });
-    console.log(sendMail);
+    // console.log(sendMail);
     revalidatePath("/dashboard/doctor/appointments");
-    console.log(newAppointment);
+    // console.log(newAppointment);
 
     return {
       data: newAppointment,
@@ -74,7 +74,7 @@ export async function updateAppointment(id: string, data: appointmentsProps) {
     });
 
     revalidatePath("/dashboard/dortor/appointments");
-    console.log(updatedAppointment);
+    // console.log(updatedAppointment);
 
     return {
       data: updatedAppointment,
@@ -136,8 +136,8 @@ export async function updateAppointmentbyId(
     });
 
     revalidatePath("/dashboard/user/appointments");
-    console.log(updatedAppointment);
-    console.log(sendMail);
+    // console.log(updatedAppointment);
+    // console.log(sendMail);
     return {
       data: updatedAppointment,
       error: null,
@@ -161,7 +161,7 @@ export async function getAppointments() {
       },
     });
     revalidatePath("/dashboard/doctor/appointments");
-    console.log(appointments);
+    // console.log(appointments);
     return {
       data: appointments,
       error: null,
@@ -188,7 +188,7 @@ export async function getPatientAppointments(patientId: string) {
       },
     });
     revalidatePath("/dashboard/doctor/appointments");
-    console.log(appointments);
+    // console.log(appointments);
     return {
       data: appointments,
       error: null,
@@ -216,7 +216,7 @@ export async function getAppointmentByPatientId(patientId: string | undefined) {
         return null;
       }
       revalidatePath("/dashboard/doctor/appointments");
-      console.log(appointment);
+      // console.log(appointment);
       return appointment;
     } catch (error) {
       console.log(error);

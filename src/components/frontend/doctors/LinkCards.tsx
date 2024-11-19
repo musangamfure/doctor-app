@@ -2,13 +2,17 @@ import { Specialty } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import { specialityProps } from "../../../../actions/doctors";
 
-type LinkCardProps = {
+type SpecialtyLinkCardProps = {
   className?: string;
-  specialties: Specialty[];
+  specialties: specialityProps[];
 };
 
-export default function LinkCards({ className, specialties }: LinkCardProps) {
+export default function SpecialtyLinkCards({
+  className,
+  specialties,
+}: SpecialtyLinkCardProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
       {specialties.map((item) => (

@@ -23,7 +23,7 @@ export async function createSpecialty(data: SpecialtyProps) {
       data,
     });
     revalidatePath("/dashboard/specialties");
-    console.log(newSpecialty);
+    // console.log(newSpecialty);
     return {
       data: newSpecialty,
       error: null,
@@ -96,7 +96,7 @@ export async function getSpecialties() {
       },
     });
     revalidatePath("/dashboard/specialties");
-    console.log(specialties);
+    // console.log(specialties);
     return {
       data: specialties,
       error: null,
@@ -188,7 +188,7 @@ export async function updateSpecialty(id: string, data: SpecialtyProps) {
       data,
     });
     revalidatePath("/dashboard/specialties");
-    console.log(updatedSpecialty);
+    // console.log(updatedSpecialty);
     return {
       data: updatedSpecialty,
       error: null,

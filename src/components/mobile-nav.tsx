@@ -3,15 +3,14 @@
 import * as React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { ViewVerticalIcon } from "@radix-ui/react-icons";
 
 import { docsConfig } from "../../config/docs";
 import { siteConfig } from "../../config/site";
 import { cn } from "@/lib/utils";
-import { Icons } from "../components/Icons";
-import { Button } from "../components/ui/button";
+
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
+import { Menu } from "lucide-react";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -81,7 +80,7 @@ export function MobileNav() {
                 )
             )}
           </div>
-          <div className="flex flex-col space-y-2">
+          {/* <div className="flex flex-col space-y-2">
             {docsConfig.sidebarNav.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">
                 <h4 className="font-medium">{item.title}</h4>
@@ -109,7 +108,7 @@ export function MobileNav() {
                   ))}
               </div>
             ))}
-          </div>
+          </div> */}
         </ScrollArea>
       </SheetContent>
     </Sheet>
@@ -134,8 +133,10 @@ function MobileLink({
     <Link
       href={href}
       onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
+        if (href) {
+          router.push(href.toString());
+          onOpenChange?.(false);
+        }
       }}
       className={cn(className)}
       {...props}

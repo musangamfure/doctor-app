@@ -140,6 +140,7 @@ type DoctorProfile = {
   accomplishments: string | null;
   hospitalHoursOfOperation: number | null;
   availability: DoctorAvailabilityProps | null;
+  operationMode: string | null;
 };
 
 export type Doctor = {

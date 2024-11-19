@@ -23,7 +23,7 @@ export async function createSymptom(data: SymptomsProps) {
       data,
     });
     revalidatePath("/dashboard/symptoms");
-    console.log(newSymptom);
+    // console.log(newSymptom);
     return {
       data: newSymptom,
       error: null,

@@ -36,7 +36,7 @@ export default function DoctorsListCarousel({
       rating={5.0}
       reviewsCount={4}
       specialization="Family medicine"
-      availability="Available tomorrow"
+      availability="Available Today"
       doctor={doctor}
       review="Great customer service! Love the doctors and the entire staff."
       prices={{ original: 131, discounted: 121 }}

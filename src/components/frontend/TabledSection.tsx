@@ -5,7 +5,7 @@ import { getSpecialties } from "../../../actions/specialties";
 import { getSymptoms } from "../../../actions/symptoms";
 
 export default async function TabledSection() {
-  const services = (await getServices()).data || [];
+  const services = (await getServices()) || [];
   const specialties = (await getSpecialties()).data || [];
   const symptoms = (await getSymptoms()).data || [];
   return (

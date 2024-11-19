@@ -35,14 +35,14 @@ export default async function Home() {
       </Container>
       <Container className="bg-blue-100 p-8 lg:p-24 dark:bg-neutral-900">
         <DoctorList
-          title="Telehealth Visit"
+          title="Telehealth"
           isInPersonal={false}
           doctors={telehealthDoctors}
         />
       </Container>
       <Container className="p-8 lg:p-24 dark:bg-slate-950">
         <DoctorList
-          title="In-Person Doctors Visit"
+          title="In-person doctor Visit"
           isInPersonal={true}
           doctors={inPersonDoctors}
         />

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { siteConfig } from "../../config/site";
 import { cn } from "@/lib/utils";
-import { Icons } from "../components/Icons";
+
 import { docsConfig } from "../../config/docs";
 
 export function MainNav() {
@@ -23,11 +23,11 @@ export function MainNav() {
           return (
             <Link
               key={i}
-              href={"/"}
+              href={link.href}
               className={cn(
                 "transition-colors hover:text-foreground/80",
                 pathname === link.href
-                  ? "text-foreground"
+                  ? "text-foreground/90"
                   : "text-foreground/60"
               )}
             >

@@ -161,19 +161,11 @@ export async function getServices() {
       },
     });
     revalidatePath("/dashboard/services");
-    console.log(services);
-    return {
-      data: services,
-      error: null,
-      status: 200,
-    };
+    // console.log(services);
+    return services;
   } catch (error) {
     console.log(error);
-    return {
-      data: null,
-      status: 500,
-      error: "Something went wrong",
-    };
+    return [];
   }
 }
 

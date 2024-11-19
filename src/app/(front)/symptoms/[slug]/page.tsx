@@ -4,7 +4,9 @@ import React from "react";
 import DoctorCard from "@/components/frontend/DoctorCard";
 import {
   getDoctorBySpecialitySlug,
+  getDoctorBySymptomsId,
   SpecialityDataProps,
+  SympytomsDataProps,
 } from "../../../../../actions/doctors";
 import { Doctor } from "../../../../../types/types";
 import { getDayName } from "../../../../../utils/getDayName";
@@ -17,10 +19,11 @@ export default async function ServicePage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { slug } = params;
+  const { id } = searchParams as { id: string };
   const title = slug.replace("-", " ");
-  const data = (await getDoctorBySpecialitySlug(slug)) as SpecialityDataProps;
+  const data = (await getDoctorBySymptomsId(id)) as SympytomsDataProps;
   const doctors = data.doctors;
-  const specialities = data.specialities;
+  const specialities = data.symptoms;
 
   const doctorsWithTimestamps = doctors?.filter((doctor: Doctor) => {
     const today = getDayName();
@@ -35,7 +38,7 @@ export default async function ServicePage({
       </h1>
       <div className="max-w-6xl mx-auto grid grid-cols-12 gap-6 lg:gap-10">
         <div className="col-span-3  border border-gray-200/50 rounded-ms p-6">
-          <h2 className="capitalize font-semibold  ">Other Specialties</h2>
+          <h2 className="capitalize font-semibold  ">Other Services</h2>
           <div className="py-3 flex flex-col gap-2 text-sm">
             {specialities &&
               specialities.length > 0 &&
@@ -43,7 +46,7 @@ export default async function ServicePage({
                 return (
                   <Link
                     key={i}
-                    href={`/speciality/${speciality.slug}`}
+                    href={`/symptoms/${speciality.slug}?id=${speciality.id}`}
                     className="hover:text-blue-600"
                   >
                     {speciality.title}
@@ -72,9 +75,7 @@ export default async function ServicePage({
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full">
-              <p className="text-gray-500">
-                No doctors found in this specialty
-              </p>
+              <p className="text-gray-500">No doctors found in this category</p>
             </div>
           )}
         </div>

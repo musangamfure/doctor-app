@@ -1,12 +1,12 @@
 export const siteConfig = {
   name: "Medico",
-  url: "https://ui.shadcn.com",
+  url: "https://doctor-app-green.vercel.app",
   ogImage: "https://ui.shadcn.com/og.jpg",
   description:
-    "Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.",
+    "Find the best price for top-rated care, including weight loss, mental health & more. Book an appointment in minutes.",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn-ui/ui",
+    LinkedIn: "https://www.linkedin.com/in/musangamfurae/",
+    github: "https://github.com/musangamfure",
   },
 };
 

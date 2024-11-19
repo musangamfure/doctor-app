@@ -143,7 +143,7 @@ export async function CommandMenu({ ...props }: DialogProps) {
                   setOpen(false);
                 }}
               >
-                View all search results for "{query}"
+                View all search results for {query}
               </CommandItem>
             </CommandGroup>
           )}

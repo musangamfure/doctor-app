@@ -11,7 +11,7 @@ export default async function DoctorServiceSettings({
 }: {
   profile: DoctorProfile | undefined | null;
 }) {
-  const services = (await getServices()).data;
+  const services = await getServices();
   const specialties = (await getSpecialties()).data;
   const symptoms = (await getSymptoms()).data;
 

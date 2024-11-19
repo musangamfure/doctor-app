@@ -15,11 +15,11 @@ export default async function NewServicePage() {
         <div className="md:col-span-2 py-3 border-r">
           <PannelHeader
             title="Services"
-            count={services.data?.length?.toString().padStart(2, "0")}
+            count={services.length?.toString().padStart(2, "0")}
             icon={LayoutGrid}
           />
           <ScrollArea className="h-[25rem] w-full p-4 ">
-            {services.data?.map((service) => (
+            {services.map((service) => (
               <ServicesCard key={service.title} service={service} />
             ))}
           </ScrollArea>
@@ -37,7 +37,7 @@ export default async function NewServicePage() {
                 <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
                   You have{" "}
                   <span className="font-bold text-blue-600 dark:text-blue-400">
-                    {services.data?.length?.toString().padStart(2, "0")}
+                    {services?.length?.toString().padStart(2, "0")}
                   </span>{" "}
                   Services today.
                 </p>

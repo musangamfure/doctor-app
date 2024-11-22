@@ -23,7 +23,7 @@ export function MainNav() {
           return (
             <Link
               key={i}
-              href={link.href}
+              href={link.href || "#"}
               className={cn(
                 "transition-colors hover:text-foreground/80",
                 pathname === link.href
